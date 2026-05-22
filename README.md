@@ -1,7 +1,7 @@
-# Charles Bahtaria
+# Charles Bartaria
 
 Solo engineer building autonomous aerial systems with DAL-A safety discipline.
-Based in Mbabane, Eswatini. Audience: defence forces, royals, government.
+Based in Mbabane, Eswatini. Audience: defence forces, enthusiasts, governments and more.
 
 > The interface IS the model. Operator interfaces compress 6 data signals into the
 > space marketing sites use for one headline.

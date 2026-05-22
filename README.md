@@ -63,7 +63,7 @@ safety risk.
 
 ## What I'm building
 
-### [agentic-uav-stack](https://github.com/CBahtaria/agentic-uav-stack) — private
+### [agentic-uav-stack](https://github.com/CBartaria/agentic-uav-stack) — private
 
 Multi-scale autonomous drone platform. Three-tier architecture:
 
@@ -82,16 +82,16 @@ N-version dispatch (`shared/security/divtab.py` — silent divergence is the tam
 LZ77+Markov audit codec (UAVZMA, ~46% smaller than UAVZ on governor batches); EAV status
 registry (`shared/status_registry/` — NATS KV + SQLite mirror, no schema migrations).
 
-### [sentinel](https://github.com/CBahtaria/sentinel) — public
+### [sentinel](https://github.com/CBartaria/sentinel) — public
 
 UEDF SENTINEL v5.0 — military command & control system for the Umbutfo Eswatini Defence
 Force. PHP 8 + MySQL. Real-time drone fleet management, threat detection, RBAC with 2FA,
 audit logging, WebSocket telemetry. Sister project to agentic-uav-stack; subscribes to
 the same NATS namespace (`uav.v1.*`).
 
-Pre-production. Open audit findings tracked in [`SECURITY-AUDIT-2026-05-21.md`](https://github.com/CBahtaria/sentinel/blob/main/SECURITY-AUDIT-2026-05-21.md).
+Pre-production. Open audit findings tracked in [`SECURITY-AUDIT-2026-05-21.md`](https://github.com/CBartaria/sentinel/blob/main/SECURITY-AUDIT-2026-05-21.md).
 
-### [second-brain](https://github.com/CBahtaria/second-brain) — private
+### [second-brain](https://github.com/CBartaria/second-brain) — private
 
 Obsidian-style knowledge vault. 29 cross-linked wiki articles + 28 studio agents that
 compound knowledge via per-session `## Evolution Log` entries. Karpathy-style synthesis

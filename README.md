@@ -1,5 +1,7 @@
 # Charles Bartaria
 
+![Banner](.github/assets/banner.svg)
+
 Solo engineer building autonomous aerial systems with DAL-A safety discipline.
 Based in Mbabane, Eswatini. Audience: defence forces, enthusiasts, governments and more.
 
@@ -8,9 +10,61 @@ Based in Mbabane, Eswatini. Audience: defence forces, enthusiasts, governments a
 
 ---
 
+## Three-tier architecture (the shape of everything I build)
+
+```mermaid
+flowchart TB
+  subgraph T3["Advisory · cloud or local"]
+    AI["AI router<br/>Claude · Ollama mistral:7b<br/>$5/day cap · circuit breaker"]
+  end
+  subgraph T2["Executive · 10–50 Hz · DAL-A"]
+    GOV["Safety governor<br/>No eval/exec/getattr<br/>NO_GO on exception"]
+    SHIELD["Formal shield · 5 invariants"]
+    DMS["Deadman switch<br/>NTP-attack detection"]
+  end
+  subgraph T1["Reactive · 1 kHz · on Pixhawk"]
+    PX4["PX4 · NuttX RTOS<br/>Attitude · motor mix"]
+  end
+
+  AI -->|"suggestion (advisory)"| GOV
+  GOV --> SHIELD
+  SHIELD --> GOV
+  GOV --> DMS
+  GOV -->|"approved setpoint"| PX4
+  PX4 -.->|"telemetry"| GOV
+
+  classDef advisory fill:#1a0d2e,stroke:#8b5cf6,color:#e2e8f0
+  classDef executive fill:#0a1e2e,stroke:#06b6d4,color:#e2e8f0
+  classDef reactive fill:#1c0a13,stroke:#ff006e,color:#e2e8f0
+  class T3,AI advisory
+  class T2,GOV,SHIELD,DMS executive
+  class T1,PX4 reactive
+```
+
+The AI never writes to the flight command path. The executive owns final
+authority. The reactive layer owns hard real-time. This separation is
+why an LLM can be useful in flight-adjacent decisions without being a
+safety risk.
+
+---
+
+## Now (week of 2026-05-22)
+
+- **agentic-uav-stack** — Tier 1+2+3 wave on `feature/ruflo-enhancement`,
+  staging for review/merge to `main`. CRC validation, EML loss, status
+  panel, knowledge graph UI, 5 training scaffolds, LLM guard + Rebuff +
+  Giskard, Jarvis speech, perception change detection.
+- **sentinel** — Post-audit hardening. 3 Critical + 6 High findings open
+  (see audit doc). No production until the queue is empty.
+- **second-brain** — Ingestion pipeline iteration. Qdrant + ONNX embedding
+  server next.
+
+---
+
 ## What I'm building
 
 ### [agentic-uav-stack](https://github.com/CBahtaria/agentic-uav-stack) — private
+
 Multi-scale autonomous drone platform. Three-tier architecture:
 
 | Layer | Component | What it owns |
@@ -19,7 +73,7 @@ Multi-scale autonomous drone platform. Three-tier architecture:
 | **Executive** (10–50 Hz, on Jetson) | Safety governor + ROS 2 Jazzy + DDS | Final flight authority. No `eval`/`exec`/`getattr` in hot path. Returns `NO_GO` on any exception. |
 | **Advisory** (cloud or local) | AI router → Claude / Ollama | Suggestions only. Must include `HUMAN_AUTHORIZATION_REQUIRED: true` on engagement recs. |
 
-Currently SRL-2, HIL ramping for SRL-3. 768 tests passing. Kardashev 0.68.
+Currently SRL-2, HIL ramping for SRL-3. 783 tests passing. Kardashev 0.68.
 
 **Subsystems shipped:** Brain daemon with key isolation (`brain/daemon.py` owns every secret;
 subprocesses get `env={}`); Simplex formal shield (5 geometric invariants); deadman's switch
@@ -29,12 +83,16 @@ LZ77+Markov audit codec (UAVZMA, ~46% smaller than UAVZ on governor batches); EA
 registry (`shared/status_registry/` — NATS KV + SQLite mirror, no schema migrations).
 
 ### [sentinel](https://github.com/CBahtaria/sentinel) — public
+
 UEDF SENTINEL v5.0 — military command & control system for the Umbutfo Eswatini Defence
-Force. PHP 8.x + MySQL. Real-time drone fleet management, threat detection, RBAC with 2FA,
+Force. PHP 8 + MySQL. Real-time drone fleet management, threat detection, RBAC with 2FA,
 audit logging, WebSocket telemetry. Sister project to agentic-uav-stack; subscribes to
 the same NATS namespace (`uav.v1.*`).
 
+Pre-production. Open audit findings tracked in [`SECURITY-AUDIT-2026-05-21.md`](https://github.com/CBahtaria/sentinel/blob/main/SECURITY-AUDIT-2026-05-21.md).
+
 ### [second-brain](https://github.com/CBahtaria/second-brain) — private
+
 Obsidian-style knowledge vault. 29 cross-linked wiki articles + 28 studio agents that
 compound knowledge via per-session `## Evolution Log` entries. Karpathy-style synthesis
 pipeline (`<scratchpad>` before article emission). Driven by the agentic-uav-stack brain
@@ -104,4 +162,8 @@ Not a content marketer. Not a vibe-coder. Not a wrapper around someone else's AP
 work targets compliance gates before features, not after; tamper-evident audit before
 "observability"; deterministic safety before clever AI.
 
-Contact through the issue tracker on any repo above.
+---
+
+## Contact
+
+Through the issue tracker on any repo above. No DMs on other platforms.

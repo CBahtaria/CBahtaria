@@ -48,22 +48,24 @@ safety risk.
 
 ---
 
-## Now (week of 2026-05-22)
+## Now (week of 2026-06-02)
 
-- **agentic-uav-stack** — Tier 1+2+3 wave on `feature/ruflo-enhancement`,
-  staging for review/merge to `main`. CRC validation, EML loss, status
-  panel, knowledge graph UI, 5 training scaffolds, LLM guard + Rebuff +
-  Giskard, Jarvis speech, perception change detection.
+- **levin-search** — shipped. Levin Universal Search over BrainFuck with three speed
+  modifications: incremental execution (zero re-execution), dead-set pruning (halted
+  programs skipped permanently), O(1) bracket precomputation. CLI: `find`, `run`,
+  `kolmogorov`. Levin-optimal: O(2^|p*| · t*) total work.
+- **agentic-uav-stack** — Tier 1+2+3 wave stable on `main`. CRC validation, EML loss,
+  knowledge graph UI, LLM guard + Rebuff + Giskard, Jarvis speech, perception change
+  detection all merged.
 - **sentinel** — Post-audit hardening. 3 Critical + 6 High findings open
   (see audit doc). No production until the queue is empty.
-- **second-brain** — Ingestion pipeline iteration. Qdrant + ONNX embedding
-  server next.
+- **second-brain** — Ingestion pipeline iteration. Qdrant + ONNX embedding server next.
 
 ---
 
 ## What I'm building
 
-### [agentic-uav-stack](https://github.com/CBartaria/agentic-uav-stack) — private
+### [agentic-uav-stack](https://github.com/CBahtaria/agentic-uav-stack) — private
 
 Multi-scale autonomous drone platform. Three-tier architecture:
 
@@ -82,22 +84,49 @@ N-version dispatch (`shared/security/divtab.py` — silent divergence is the tam
 LZ77+Markov audit codec (UAVZMA, ~46% smaller than UAVZ on governor batches); EAV status
 registry (`shared/status_registry/` — NATS KV + SQLite mirror, no schema migrations).
 
-### [sentinel](https://github.com/CBartaria/sentinel) — public
+### [sentinel](https://github.com/CBahtaria/sentinel) — public
 
 UEDF SENTINEL v5.0 — military command & control system for the Umbutfo Eswatini Defence
 Force. PHP 8 + MySQL. Real-time drone fleet management, threat detection, RBAC with 2FA,
 audit logging, WebSocket telemetry. Sister project to agentic-uav-stack; subscribes to
 the same NATS namespace (`uav.v1.*`).
 
-Pre-production. Open audit findings tracked in [`SECURITY-AUDIT-2026-05-21.md`](https://github.com/CBartaria/sentinel/blob/main/SECURITY-AUDIT-2026-05-21.md).
+Pre-production. Open audit findings tracked in [`SECURITY-AUDIT-2026-05-21.md`](https://github.com/CBahtaria/sentinel/blob/main/SECURITY-AUDIT-2026-05-21.md).
 
-### [second-brain](https://github.com/CBartaria/second-brain) — private
+### [second-brain](https://github.com/CBahtaria/second-brain) — private
 
 Obsidian-style knowledge vault. 29 cross-linked wiki articles + 28 studio agents that
 compound knowledge via per-session `## Evolution Log` entries. Karpathy-style synthesis
 pipeline (`<scratchpad>` before article emission). Driven by the agentic-uav-stack brain
 daemon — `AGENT_EVOLUTION` coworker auto-appends Evolution Log entries from claude-mem
 observations daily at 23:30.
+
+### [levin-search](https://github.com/CBahtaria/levin-search) — private
+
+Speed-optimised implementation of Levin's Universal Search (LSEARCH) over BrainFuck
+programs with a pluggable success predicate. Three modifications over the naive algorithm:
+
+| # | Modification | Effect |
+|---|---|---|
+| 1 | **Incremental execution** | Programs resume from last checkpoint — delta = `2^(i−|p|−1)` steps per phase. Zero re-computation. |
+| 2 | **Dead-set pruning** | Halted/errored programs removed permanently from the active set. |
+| 3 | **Bracket precomputation** | `[`/`]` targets resolved O(1) at machine creation. Unbalanced programs dropped before allocation. |
+
+Levin-optimal: O(2^|p*| · t*) total work. Phase 6 ≈ 60 MB RAM, phase 8 ≈ 3.8 GB.
+CLI: `find <target>`, `run <program>`, `kolmogorov <target>`.
+
+### [production-compression-framework](https://github.com/CBahtaria/production-compression-framework) — private
+
+Production-grade compression pipeline: adaptive streaming, multi-codec orchestration,
+edge-deployed. Shell + infrastructure tooling for high-throughput data reduction at the
+edge of the UAV sensor pipeline.
+
+### [studio-p](https://github.com/CBahtaria/studio-p) — public
+
+Production-grade barbershop booking platform. React 19 + TypeScript + Supabase + Vercel.
+Pake desktop wrapper for offline-first operation. Full booking flow, staff scheduling,
+real-time availability — same design discipline (compliance before features, fail-safe
+defaults) applied outside the aerospace domain.
 
 ---
 

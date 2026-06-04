@@ -1,12 +1,38 @@
-# Charles Bartaria
+<div align="center">
 
-![Banner](.github/assets/banner.svg)
+```
+██████╗ ██████╗ ████████╗    ██╗███╗   ██╗ ██████╗
+██╔══██╗██╔══██╗╚══██╔══╝    ██║████╗  ██║██╔════╝
+██████╔╝██████╔╝   ██║       ██║██╔██╗ ██║██║
+██╔══██╗██╔══██╗   ██║       ██║██║╚██╗██║██║
+██████╔╝██║  ██║   ██║       ██║██║ ╚████║╚██████╗
+╚═════╝ ╚═╝  ╚═╝   ╚═╝       ╚═╝╚═╝  ╚═══╝ ╚═════╝
+```
 
-Solo engineer building autonomous aerial systems with DAL-A safety discipline.
-Based in Mbabane, Eswatini. Audience: defence forces, enthusiasts, governments and more.
+**Charles Bartaria** · Software Engineer  
+Manzini, Kingdom of Eswatini · BSc Computer Science (UNESWA 2026)
 
-> The interface IS the model. Operator interfaces compress 6 data signals into the
-> space marketing sites use for one headline.
+[![BRT Inc.](https://img.shields.io/badge/BRT_Inc.-Software_Engineering-0a0a0a?style=flat-square)](https://brtinc.dev)
+[![PHP](https://img.shields.io/badge/PHP_8-Expert-777BB4?style=flat-square&logo=php&logoColor=white)](https://github.com/CBahtaria)
+[![Python](https://img.shields.io/badge/Python-Expert-3776AB?style=flat-square&logo=python&logoColor=white)](https://github.com/CBahtaria)
+[![React](https://img.shields.io/badge/React-Advanced-61DAFB?style=flat-square&logo=react&logoColor=black)](https://github.com/CBahtaria)
+
+</div>
+
+---
+
+## About
+
+I build **production-grade software**: systems with test suites, CI/CD pipelines, security audits, and deployment documentation. Autonomous aerial systems with DAL-A safety discipline. Three-tier architecture: PX4 reactive / safety-governor executive / advisory AI.
+
+> The interface IS the model. Operator interfaces compress 6 data signals into the space marketing sites use for one headline.
+
+**Three areas I go deep on:**
+- **Security-conscious system design** — auth flows, RBAC, session management, secrets hygiene, OWASP Top 10
+- **Production infrastructure** — Docker, Nginx, GitHub Actions, Prometheus/Grafana, Kubernetes
+- **Quantitative data science** — ARIMA/SARIMA, Prophet forecasting, Monte Carlo simulation, Plotly Dash
+
+Available globally via [BRT Inc.](https://brtinc.dev) and [Upwork](https://upwork.com/freelancers/charlesbartaria).
 
 ---
 
@@ -41,157 +67,153 @@ flowchart TB
   class T1,PX4 reactive
 ```
 
-The AI never writes to the flight command path. The executive owns final
-authority. The reactive layer owns hard real-time. This separation is
-why an LLM can be useful in flight-adjacent decisions without being a
-safety risk.
+**Key principle:** The AI never writes to the flight command path. The executive owns final authority. The reactive layer owns hard real-time. This separation is why an LLM can be useful in flight-adjacent decisions without being a safety risk.
 
 ---
 
 ## Now (week of 2026-06-04)
 
 - **sentinel** — Audit closed (9/9 findings resolved). BRT Inc. launched with UEDF SENTINEL v5.0 in production.
-- **agentic-uav-stack** — Tier 1+2+3 wave stable on `main`. CRC validation, EML loss,
-  knowledge graph UI, LLM guard + Rebuff + Giskard, Jarvis speech, perception change
-  detection all merged. SRL-3 HIL ramping.
-- **levin-search** — shipped. Levin Universal Search over BrainFuck with three speed
-  modifications: incremental execution (zero re-execution), dead-set pruning (halted
-  programs skipped permanently), O(1) bracket precomputation. CLI: `find`, `run`,
-  `kolmogorov`. Levin-optimal: O(2^|p*| · t*) total work.
+- **agentic-uav-stack** — Tier 1+2+3 wave stable on `main`. SRL-3 HIL ramping. 783 tests passing.
+- **levin-search** — Shipped. Levin Universal Search over BrainFuck with O(2^|p*| · t*) total work.
 - **second-brain** — Ingestion pipeline iteration. Qdrant + ONNX embedding server next.
 
 ---
 
-## What I'm building
+## Featured projects
 
-### [agentic-uav-stack](https://github.com/CBahtaria/agentic-uav-stack) — private
+### 🔒 [UEDF Sentinel v5.0](https://github.com/CBahtaria/sentinel) — public
 
-Multi-scale autonomous drone platform. Three-tier architecture:
+**Military command & control platform** · 27,900 lines · PHP 8 + MySQL · production-ready
+
+Real-time drone fleet management and threat detection system. RBAC with 4 roles, TOTP 2FA, blockchain-chained tamper-evident audit log, Node.js WebSocket telemetry shim, NATS JetStream integration. Sister project to agentic-uav-stack; subscribes to the same NATS namespace (`uav.v1.*`).
+
+**Security audit:** 3 Critical + 6 High findings → [all 9 resolved](https://github.com/CBahtaria/sentinel/blob/main/SECURITY.md) · 22 files patched · 317 lines fixed · 0 regressions · audit-gated CI.
+
+```
+PHP 8.3 · MySQL 8 · Node.js · NATS JetStream · WebSocket · PHPUnit · GitHub Actions
+```
+
+---
+
+### 🛸 [Agentic UAV Stack](https://github.com/CBahtaria/agentic-uav-stack) — private
+
+**Multi-scale autonomous drone platform** · Three-tier architecture
 
 | Layer | Component | What it owns |
 |---|---|---|
-| **Reactive** (1 kHz, on Pixhawk) | PX4 + NuttX RTOS | Attitude control, motor mix, safety pilot override |
-| **Executive** (10–50 Hz, on Jetson) | Safety governor + ROS 2 Jazzy + DDS | Final flight authority. No `eval`/`exec`/`getattr` in hot path. Returns `NO_GO` on any exception. |
-| **Advisory** (cloud or local) | AI router → Claude / Ollama | Suggestions only. Must include `HUMAN_AUTHORIZATION_REQUIRED: true` on engagement recs. |
+| **Reactive** (1 kHz) | PX4 + NuttX RTOS | Attitude control, motor mix, safety pilot override |
+| **Executive** (10–50 Hz) | Safety governor + ROS 2 Jazzy + DDS | Final flight authority. No `eval`/`exec`/`getattr`. Returns `NO_GO` on exception. |
+| **Advisory** | AI router → Claude / Ollama | Suggestions only. Requires `HUMAN_AUTHORIZATION_REQUIRED: true`. |
 
 Currently SRL-3, HIL ramping. 783 tests passing. Kardashev 0.68.
 
-**Subsystems shipped:** Brain daemon with key isolation (`brain/daemon.py` owns every secret;
-subprocesses get `env={}`); Simplex formal shield (5 geometric invariants); deadman's switch
-with NTP-attack detection; Octogent multi-agent vuln scanner (9 persona children + 1 synthesis);
-N-version dispatch (`shared/security/divtab.py` — silent divergence is the tamper signal);
-LZ77+Markov audit codec (UAVZMA, ~46% smaller than UAVZ on governor batches); EAV status
-registry (`shared/status_registry/` — NATS KV + SQLite mirror, no schema migrations).
+**Subsystems shipped:** Brain daemon with key isolation; Simplex formal shield (5 geometric invariants); deadman's switch with NTP-attack detection; Octogent multi-agent vulnerability scanner; N-version dispatch (silent divergence = tamper signal); LZ77+Markov audit codec (UAVZMA, ~46% smaller); EAV status registry (NATS KV + SQLite mirror, no schema migrations).
 
-### [sentinel](https://github.com/CBahtaria/sentinel) — public
+```
+Python 3.12 · NATS JetStream · MAVLink · ROS 2 Jazzy · DDS · pytest · GitHub Actions
+```
 
-UEDF SENTINEL v5.0 — military command & control system for the Umbutfo Eswatini Defence
-Force. PHP 8 + MySQL. Real-time drone fleet management, threat detection, RBAC with 2FA,
-audit logging, WebSocket telemetry. Sister project to agentic-uav-stack; subscribes to
-the same NATS namespace (`uav.v1.*`).
+---
 
-Production. Audit findings resolved (9/9). Security audit dated 2026-05-21 closed.
+### 📊 Eswatini Macroeconomic Dashboard *(UNESWA Dissertation)*
 
-### [second-brain](https://github.com/CBahtaria/second-brain) — private
+**Economic intelligence system** · FastAPI + Plotly Dash · 54 tests passing
 
-Obsidian-style knowledge vault. 29 cross-linked wiki articles + 28 studio agents that
-compound knowledge via per-session `## Evolution Log` entries. Karpathy-style synthesis
-pipeline (`<scratchpad>` before article emission). Driven by the agentic-uav-stack brain
-daemon — `AGENT_EVOLUTION` coworker auto-appends Evolution Log entries from claude-mem
-observations daily at 23:30.
+Production-grade backend with 11 endpoint groups, SQLAlchemy ORM, JWT auth (3-tier RBAC). Forecasting engine: auto-order ARIMA/SARIMA, Facebook Prophet, Monte Carlo fiscal sustainability simulation (IMF debt-dynamics with SACU shock terms). Deployed via Docker Compose (7 services) with Nginx TLS, rate limiting, Prometheus/Grafana monitoring.
 
-### [levin-search](https://github.com/CBahtaria/levin-search) — private
+```
+Python · FastAPI · Plotly Dash · Prophet · SQLAlchemy · PostgreSQL · Docker · Nginx · pytest
+```
 
-Speed-optimised implementation of Levin's Universal Search (LSEARCH) over BrainFuck
-programs with a pluggable success predicate. Three modifications over the naive algorithm:
+---
+
+### ✂️ [Studio P Barbershop App v3](https://github.com/CBahtaria/studio-p) — public
+
+**Production-grade booking platform** · React 19 + TypeScript + Supabase + Vercel
+
+Live business app deployed for Studio P, Manzini. OS-aware UI via `userAgent`/`platform`/`maxTouchPoints` (applied synchronously, zero layout flash). Two-round orchestrated parallel booking validation with `Promise.all` subagents. Per-member space customization (8 colour themes, background upload via FileReader → base64 → localStorage, font/animation/blur controls). Admin-controlled landing theme picker (6 global themes). Supabase anon-key-only client with RLS enforced at Postgres layer.
+
+```
+React 19 · TypeScript · Supabase · PostgreSQL RLS · PBKDF2 · Web Crypto API · Vercel
+```
+
+---
+
+### ⚡ [Levin Search](https://github.com/CBahtaria/levin-search) — private
+
+**Levin's Universal Search over BrainFuck** · Speed-optimised · O(2^|p*| · t*) work
+
+Three modifications over naive algorithm:
 
 | # | Modification | Effect |
 |---|---|---|
-| 1 | **Incremental execution** | Programs resume from last checkpoint — delta = `2^(i−|p|−1)` steps per phase. Zero re-computation. |
-| 2 | **Dead-set pruning** | Halted/errored programs removed permanently from the active set. |
-| 3 | **Bracket precomputation** | `[`/`]` targets resolved O(1) at machine creation. Unbalanced programs dropped before allocation. |
+| 1 | **Incremental execution** | Programs resume from checkpoint — zero re-computation |
+| 2 | **Dead-set pruning** | Halted/errored programs removed permanently |
+| 3 | **Bracket precomputation** | O(1) bracket target resolution |
 
-Levin-optimal: O(2^|p*| · t*) total work. Phase 6 ≈ 60 MB RAM, phase 8 ≈ 3.8 GB.
-CLI: `find <target>`, `run <program>`, `kolmogorov <target>`.
+Phase 6 ≈ 60 MB RAM, phase 8 ≈ 3.8 GB. CLI: `find <target>`, `run <program>`, `kolmogorov <target>`.
 
-### [production-compression-framework](https://github.com/CBahtaria/production-compression-framework) — private
+---
 
-Production-grade compression pipeline: adaptive streaming, multi-codec orchestration,
-edge-deployed. Shell + infrastructure tooling for high-throughput data reduction at the
-edge of the UAV sensor pipeline.
+### 🗜️ [Production Compression Framework](https://github.com/CBahtaria/production-compression-framework) — private
 
-### [studio-p](https://github.com/CBahtaria/studio-p) — public
+Production-grade compression pipeline: adaptive streaming, multi-codec orchestration, edge-deployed. Shell + infrastructure tooling for high-throughput data reduction at the edge of the UAV sensor pipeline.
 
-Production-grade barbershop booking platform. React 19 + TypeScript + Supabase + Vercel.
-Pake desktop wrapper for offline-first operation. Full booking flow, staff scheduling,
-real-time availability — same design discipline (compliance before features, fail-safe
-defaults) applied outside the aerospace domain.
+---
+
+### 🧠 [Second Brain](https://github.com/CBahtaria/second-brain) — private
+
+Obsidian-style knowledge vault. 29 cross-linked wiki articles + 28 studio agents compounding knowledge via per-session `## Evolution Log` entries. Karpathy-style synthesis pipeline (`<scratchpad>` before article emission). Driven by agentic-uav-stack brain daemon — `AGENT_EVOLUTION` coworker auto-appends entries from claude-mem observations daily at 23:30.
 
 ---
 
 ## Operating principles
 
-1. **No AI in the flight command path.** AI is advisory; the formal shield + governor
-   have final say. Engagement recommendations require human authorization.
-2. **DAL-A invariants are CI-gated.** `scripts/check_dal_a_rules.py` rejects `eval`,
-   `exec`, `getattr`, `__import__` in safety-critical files.
-3. **Fail-safe means `NO_GO`.** Governor returns NO_GO on any exception; decision
-   variables are pre-bound before the try block to prevent stale-setpoint propagation.
-4. **API keys never leave the daemon process.** `brain/daemon.py` loads `.env`, pops
-   secrets from `os.environ`, then `subprocess.Popen(..., env={})`. Audit via
-   `make audit-keys` (greps `/proc/*/environ`).
-5. **Defense in depth at every layer.** SROS2 enclaves enforce topic-level pub/sub
-   authorization at the DDS layer — even if AI code bypasses app-level auth, only the
-   `ai_agent` enclave may publish `/ai/suggested_action`.
-6. **Multi-persona security review.** 9 concurrent personas (red-team, blue-team,
-   supply-chain, compliance, insider-threat, architecture-integrity, trojan-horse,
-   goldilocks, cat-burglar) run weekly with explicit failure containment per child.
+1. **No AI in the flight command path.** AI is advisory; formal shield + governor have final say. Engagement recs require human authorization.
+2. **DAL-A invariants are CI-gated.** `scripts/check_dal_a_rules.py` rejects `eval`, `exec`, `getattr`, `__import__` in safety-critical files.
+3. **Fail-safe means `NO_GO`.** Governor returns NO_GO on exception; decision variables pre-bound before try block.
+4. **API keys never leave the daemon process.** `brain/daemon.py` loads `.env`, pops secrets, then `subprocess.Popen(..., env={})`. Audit via `make audit-keys`.
+5. **Defense in depth at every layer.** SROS2 enclaves enforce topic-level pub/sub authorization at DDS layer.
+6. **Multi-persona security review.** 9 concurrent personas (red-team, blue-team, supply-chain, compliance, insider-threat, architecture-integrity, trojan-horse, goldilocks, cat-burglar) run weekly with explicit failure containment.
 
 ---
 
-## Tech
+## Tech stack
 
-**Languages.** Python 3.12 (primary, CI matrix 3.11–3.13), TypeScript, PHP 8, C++, Bash.
-
-**Runtime.** ROS 2 Jazzy, NuttX RTOS, Linux (Fedora dev, RHEL9 ground station, Jetson Orin
-edge). Docker Compose dev, Kubernetes + MicroShift edge, Helm prod, Ansible fleet, systemd.
-
-**Data plane.** NATS JetStream (14 streams under `uav.v1.*`), Qdrant, SQLite (WAL + FTS5),
-DuckDB (telemetry buffer), PostgreSQL, MySQL.
-
-**AI.** Claude Sonnet/Opus (cloud, $5/day cap), Ollama mistral:7b-q4 (local fallback),
-hybrid router with circuit breaker (3 failures → force local 15 min). Custom hooks: SFT,
-RLVR (verifiable rewards), distillation, GGUF quantization, off-policy SAC.
-
-**Security.** SROS2 keystore + DDS Security, TPM 2.0 attestation, cosign image signing
-(WIP), NTS-NTP, MAVLink 2 message signing (WIP), supply-chain guardian (Jia Tan / XZ
-post-mortem applied).
-
-**UI.** Flask + Socket.IO + React/JSX (no build step — Babel on CDN). BARTARIA TAC-OS v5
-design tokens — Carbon/Armor/Phosphor/Sodium/Tracer/Target/Iris palette, Doto + Iceland +
-DM Sans + JetBrains Mono. r3f + shadergradient + liquid-glass-js + MetalFlow for the
-knowledge graph webapp.
+| Layer | Technologies |
+|---|---|
+| **Languages** | Python 3.12 · PHP 8 · TypeScript · JavaScript · SQL · C++ · Bash |
+| **Web** | FastAPI · React 19 · Plotly Dash · Flask + Socket.IO · Ratchet WebSocket · SQLAlchemy |
+| **Data** | NATS JetStream · PostgreSQL · MySQL 8 · Supabase · SQLite (WAL + FTS5) · DuckDB · Qdrant |
+| **DevOps** | Docker Compose · Kubernetes + MicroShift · Helm · Nginx · GitHub Actions · Prometheus · Grafana · Ansible |
+| **ML / Forecasting** | ARIMA/SARIMA · Prophet · Monte Carlo · pandas · scikit-learn · GGUF quantization |
+| **Security** | OWASP Top 10 · RBAC · JWT · PBKDF2 · 2FA/TOTP · SROS2 DDS Security · TPM 2.0 · cosign · NTS-NTP · MAVLink 2 signing |
+| **Testing** | PHPUnit · pytest · stress testing · integration tests · GitHub Actions CI |
+| **Runtime** | ROS 2 Jazzy · NuttX RTOS · Linux (Fedora dev, RHEL9, Jetson Orin) · systemd |
+| **AI** | Claude Sonnet/Opus ($5/day cap) · Ollama mistral:7b-q4 · hybrid router + circuit breaker · SFT · RLVR · distillation |
+| **UI** | React/JSX · Babel on CDN · BARTARIA TAC-OS v5 design tokens · Doto + Iceland + DM Sans + JetBrains Mono · r3f + shadergradient |
 
 ---
 
 ## Audience
 
-I write so the next operator can pick this up cold. National Libraries, government
-officials, royals are the design audience for the compliance posture. The repos and
-docs reflect that — read `agentic-uav-stack/WORKING-CONTEXT.md` for the current state
-snapshot, `agentic-uav-stack/SECURITY.md` for the threat model, `agentic-uav-stack/RULES.md`
-for the hard rules.
+I write so the next operator can pick this up cold. National Libraries, government officials, defence forces are the design audience for the compliance posture. Repos and docs reflect that — read `agentic-uav-stack/WORKING-CONTEXT.md` for current state, `agentic-uav-stack/SECURITY.md` for threat model, `agentic-uav-stack/RULES.md` for hard rules.
 
 ---
 
 ## What I am not
 
-Not a content marketer. Not a vibe-coder. Not a wrapper around someone else's API. The
-work targets compliance gates before features, not after; tamper-evident audit before
-"observability"; deterministic safety before clever AI.
+Not a content marketer. Not a vibe-coder. Not a wrapper around someone else's API. Work targets compliance gates before features, not after; tamper-evident audit before "observability"; deterministic safety before clever AI.
 
 ---
 
 ## Contact
+
+**Building something that needs a solid engineer?**
+
+**[BRT Inc.](https://brtinc.dev)** · hello@brtinc.dev · [Upwork](https://upwork.com/freelancers/charlesbartaria)
+
+> *"Every project ships with a test suite, CI/CD pipeline, and deployment documentation — not just working code."*
 
 Through the issue tracker on any repo above. No DMs on other platforms.

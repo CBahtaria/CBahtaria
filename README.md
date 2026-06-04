@@ -48,17 +48,16 @@ safety risk.
 
 ---
 
-## Now (week of 2026-06-02)
+## Now (week of 2026-06-04)
 
+- **sentinel** — Audit closed (9/9 findings resolved). BRT Inc. launched with UEDF SENTINEL v5.0 in production.
+- **agentic-uav-stack** — Tier 1+2+3 wave stable on `main`. CRC validation, EML loss,
+  knowledge graph UI, LLM guard + Rebuff + Giskard, Jarvis speech, perception change
+  detection all merged. SRL-3 HIL ramping.
 - **levin-search** — shipped. Levin Universal Search over BrainFuck with three speed
   modifications: incremental execution (zero re-execution), dead-set pruning (halted
   programs skipped permanently), O(1) bracket precomputation. CLI: `find`, `run`,
   `kolmogorov`. Levin-optimal: O(2^|p*| · t*) total work.
-- **agentic-uav-stack** — Tier 1+2+3 wave stable on `main`. CRC validation, EML loss,
-  knowledge graph UI, LLM guard + Rebuff + Giskard, Jarvis speech, perception change
-  detection all merged.
-- **sentinel** — Post-audit hardening. 3 Critical + 6 High findings open
-  (see audit doc). No production until the queue is empty.
 - **second-brain** — Ingestion pipeline iteration. Qdrant + ONNX embedding server next.
 
 ---
@@ -75,7 +74,7 @@ Multi-scale autonomous drone platform. Three-tier architecture:
 | **Executive** (10–50 Hz, on Jetson) | Safety governor + ROS 2 Jazzy + DDS | Final flight authority. No `eval`/`exec`/`getattr` in hot path. Returns `NO_GO` on any exception. |
 | **Advisory** (cloud or local) | AI router → Claude / Ollama | Suggestions only. Must include `HUMAN_AUTHORIZATION_REQUIRED: true` on engagement recs. |
 
-Currently SRL-2, HIL ramping for SRL-3. 783 tests passing. Kardashev 0.68.
+Currently SRL-3, HIL ramping. 783 tests passing. Kardashev 0.68.
 
 **Subsystems shipped:** Brain daemon with key isolation (`brain/daemon.py` owns every secret;
 subprocesses get `env={}`); Simplex formal shield (5 geometric invariants); deadman's switch
@@ -91,7 +90,7 @@ Force. PHP 8 + MySQL. Real-time drone fleet management, threat detection, RBAC w
 audit logging, WebSocket telemetry. Sister project to agentic-uav-stack; subscribes to
 the same NATS namespace (`uav.v1.*`).
 
-Pre-production. Open audit findings tracked in [`SECURITY-AUDIT-2026-05-21.md`](https://github.com/CBahtaria/sentinel/blob/main/SECURITY-AUDIT-2026-05-21.md).
+Production. Audit findings resolved (9/9). Security audit dated 2026-05-21 closed.
 
 ### [second-brain](https://github.com/CBahtaria/second-brain) — private
 

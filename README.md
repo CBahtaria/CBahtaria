@@ -9,7 +9,7 @@
 ╚═════╝ ╚═╝  ╚═╝   ╚═╝       ╚═╝╚═╝  ╚═══╝ ╚═════╝
 ```
 
-**Charles Bartaria** · Software Engineer  
+**Charles Bartaria** · Software Engineer & Applied Mathematician  
 Manzini, Kingdom of Eswatini · BSc Computer Science & Mathematics (UNESWA 2026)
 
 [![BRT Inc.](https://img.shields.io/badge/BRT_Inc.-Software_Engineering-0a0a0a?style=flat-square)](https://brtinc.dev)
@@ -23,14 +23,14 @@ Manzini, Kingdom of Eswatini · BSc Computer Science & Mathematics (UNESWA 2026)
 
 ## About
 
-I build **production-grade software**: systems with test suites, CI/CD pipelines, security audits, and deployment documentation. Autonomous aerial systems with DAL-A safety discipline. Three-tier arch[...]
+I build **production-grade software**: systems with test suites, CI/CD pipelines, security audits, and deployment documentation. Autonomous aerial systems with DAL-A safety discipline. Three-tier architecture combining formal verification, numerical methods, and real-time control.
 
 > The interface IS the model. Operator interfaces compress 6 data signals into the space marketing sites use for one headline.
 
 **Three areas I go deep on:**
 - **Security-conscious system design** — auth flows, RBAC, session management, secrets hygiene, OWASP Top 10
 - **Production infrastructure** — Docker, Nginx, GitHub Actions, Prometheus/Grafana, Kubernetes
-- **Quantitative data science** — ARIMA/SARIMA, Prophet forecasting, Monte Carlo simulation, Plotly Dash
+- **Applied mathematics & quantitative methods** — ARIMA/SARIMA time-series analysis, Prophet forecasting, Monte Carlo simulation, stochastic modeling, complexity analysis (Kolmogorov, algorithmic information theory), formal invariants
 
 Available globally via [BRT Inc.](https://brtinc.dev) and [Upwork](https://upwork.com/freelancers/charlesbartaria).
 
@@ -75,7 +75,7 @@ flowchart TB
 
 - **sentinel** — Audit closed (9/9 findings resolved). BRT Inc. launched with UEDF SENTINEL v5.0 in production.
 - **agentic-uav-stack** — Tier 1+2+3 wave stable on `main`. SRL-3 HIL ramping. 783 tests passing.
-- **levin-search** — Shipped. Levin Universal Search over BrainFuck with O(2^|p*| · t*) total work.
+- **levin-search** — Shipped. Levin Universal Search over BrainFuck with O(2^|p*| · t*) total work. Kolmogorov complexity bounds verified.
 - **second-brain** — Ingestion pipeline iteration. Qdrant + ONNX embedding server next.
 
 ---
@@ -98,13 +98,13 @@ PHP 8.3 · MySQL 8 · Node.js · NATS JetStream · WebSocket · PHPUnit · GitHu
 
 ### 🛸 [Agentic UAV Stack](https://github.com/CBahtaria/agentic-uav-stack) — private
 
-**Multi-scale autonomous drone platform** · Three-tier architecture
+**Multi-scale autonomous drone platform** · Three-tier architecture · Formal verification
 
-| Layer | Component | What it owns |
+| Layer | Component | Mathematics & Theory |
 |---|---|---|
-| **Reactive** (1 kHz) | PX4 + NuttX RTOS | Attitude control, motor mix, safety pilot override |
-| **Executive** (10–50 Hz) | Safety governor + ROS 2 Jazzy + DDS | Final flight authority. No `eval`/`exec`/`getattr`. Returns `NO_GO` on exception. |
-| **Advisory** | AI router → Claude / Ollama | Suggestions only. Requires `HUMAN_AUTHORIZATION_REQUIRED: true`. |
+| **Reactive** (1 kHz) | PX4 + NuttX RTOS | Attitude quaternions, motor mixing matrices, real-time servo control |
+| **Executive** (10–50 Hz) | Safety governor + ROS 2 Jazzy + DDS | Formal shield: 5 geometric invariants, deadman's switch with NTP-attack detection, fail-safe semantics |
+| **Advisory** | AI router → Claude / Ollama | Probabilistic decision boundary, human-authorization gating |
 
 Currently SRL-3, HIL ramping. 783 tests passing. Kardashev 0.68.
 
@@ -118,12 +118,12 @@ Python 3.12 · NATS JetStream · MAVLink · ROS 2 Jazzy · DDS · pytest · GitH
 
 ### 📊 Eswatini Macroeconomic Dashboard *(UNESWA Dissertation)*
 
-**Economic intelligence system** · FastAPI + Plotly Dash · 54 tests passing
+**Economic intelligence system** · FastAPI + Plotly Dash · 54 tests passing · Quantitative Methods
 
-Production-grade backend with 11 endpoint groups, SQLAlchemy ORM, JWT auth (3-tier RBAC). Forecasting engine: auto-order ARIMA/SARIMA, Facebook Prophet, Monte Carlo fiscal sustainability simulation (I[...]
+Production-grade backend with 11 endpoint groups, SQLAlchemy ORM, JWT auth (3-tier RBAC). **Forecasting engine:** auto-order ARIMA/SARIMA time-series decomposition, Facebook Prophet with changepoint detection, Monte Carlo fiscal sustainability simulation (10,000 paths, 95% CI bounds). Impulse-response analysis for shock scenarios.
 
 ```
-Python · FastAPI · Plotly Dash · Prophet · SQLAlchemy · PostgreSQL · Docker · Nginx · pytest
+Python · FastAPI · Plotly Dash · Prophet · statsmodels · pandas · SQLAlchemy · PostgreSQL · Docker · Nginx · pytest
 ```
 
 ---
@@ -142,15 +142,17 @@ React 19 · TypeScript · Supabase · PostgreSQL RLS · PBKDF2 · Web Crypto API
 
 ### ⚡ [Levin Search](https://github.com/CBahtaria/levin-search) — private
 
-**Levin's Universal Search over BrainFuck** · Speed-optimised · O(2^|p*| · t*) work
+**Levin's Universal Search over BrainFuck** · Algorithmic Information Theory · Speed-optimised
 
-Three modifications over naive algorithm:
+Deterministic universal search algorithm over programs in an esoteric language. Achieves O(2^|p*| · t*) total work asymptotically — matching Levin's theoretical bound. **Mathematical foundations:** Kolmogorov complexity, prefix-free enumeration, halting problem bounds.
 
-| # | Modification | Effect |
-|---|---|---|
-| 1 | **Incremental execution** | Programs resume from checkpoint — zero re-computation |
-| 2 | **Dead-set pruning** | Halted/errored programs removed permanently |
-| 3 | **Bracket precomputation** | O(1) bracket target resolution |
+Three optimizations:
+
+| # | Modification | Effect | Theory |
+|---|---|---|---|
+| 1 | **Incremental execution** | Programs resume from checkpoint — zero re-computation | Memoization with O(1) state restore |
+| 2 | **Dead-set pruning** | Halted/errored programs removed permanently | Irreversible halt detection → search space reduction |
+| 3 | **Bracket precomputation** | O(1) bracket target resolution | Prefix trie on execution stack |
 
 Phase 6 ≈ 60 MB RAM, phase 8 ≈ 3.8 GB. CLI: `find <target>`, `run <program>`, `kolmogorov <target>`.
 
@@ -188,6 +190,7 @@ Obsidian-style knowledge vault. 29 cross-linked wiki articles + 28 studio agents
 | **Data** | NATS JetStream · PostgreSQL · MySQL 8 · Supabase · SQLite (WAL + FTS5) · DuckDB · Qdrant |
 | **DevOps** | Docker Compose · Kubernetes + MicroShift · Helm · Nginx · GitHub Actions · Prometheus · Grafana · Ansible |
 | **ML / Forecasting** | ARIMA/SARIMA · Prophet · Monte Carlo · pandas · scikit-learn · GGUF quantization |
+| **Mathematics** | Time-series decomposition · Stochastic modeling · Complexity theory (Kolmogorov, algorithmic information) · Formal verification · Quaternion algebra (attitude control) |
 | **Security** | OWASP Top 10 · RBAC · JWT · PBKDF2 · 2FA/TOTP · SROS2 DDS Security · TPM 2.0 · cosign · NTS-NTP · MAVLink 2 signing |
 | **Testing** | PHPUnit · pytest · stress testing · integration tests · GitHub Actions CI |
 | **Runtime** | ROS 2 Jazzy · NuttX RTOS · Linux (Fedora dev, RHEL9, Jetson Orin) · systemd |

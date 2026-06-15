@@ -71,12 +71,12 @@ flowchart TB
 
 ---
 
-## Now (week of 2026-06-04)
+## Now (week of 2026-06-15)
 
-- **sentinel** — Audit closed (9/9 findings resolved). BRT Inc. launched with UEDF SENTINEL v5.0 in production.
-- **agentic-uav-stack** — Tier 1+2+3 wave stable on `main`. SRL-3 HIL ramping. 783 tests passing.
-- **levin-search** — Shipped. Levin Universal Search over BrainFuck with O(2^|p*| · t*) total work. Kolmogorov complexity bounds verified.
-- **second-brain** — Ingestion pipeline iteration. Qdrant + ONNX embedding server next.
+- **brt-inc** — Full overhaul shipped. 5-layer CSS `@layer`, 3-palette theme system (Carbon dark / Aerospace White / Midnight Steel), Space Grotesk + Geist Mono, 4-col bento portfolio grid, `@property` animated gradient borders. Inline JS/CSS extracted — `unsafe-inline` removed from `script-src`. Lucide icons, PWA manifest, Braintrust eval pipeline (12 scored checks), 6 DB indexes. Live at [brtinc.vercel.app](https://brtinc.vercel.app).
+- **brt-uav-ecosystem** — Zig 0.14.0 onboard companion: SE(3) Lie groups (comptime generics), 13-state EKF (pos + vel + attitude + gyro bias, Mahalanobis gating), zero-alloc MAVLink 2 parser (X.25 CRC, packed structs), AES-GCM-256 per-packet auth (counter nonce, subject-bound AD), NATS edge gateway with 4096-slot ring buffer. Cross-compiles to `aarch64-linux-musl` (Jetson Orin / RPi 5). Tests passing.
+- **sentinel** — All 9 audit findings resolved (3 Critical + 6 High). Env-var secret management, PDO prepared statements throughout, session fixation fix, security headers on all API responses, login lockout enforcement. 22 files patched, 0 regressions.
+- **agentic-uav-stack** — Merkle audit trail integrated into sentinel bridge. SHA-256 Merkle tree with O(log n) inclusion proofs publishing checkpoint root every 100 events to NATS `uav.v1.audit.merkle_root`. 11/11 Merkle tests passing.
 
 ---
 
@@ -167,6 +167,20 @@ Production-grade compression pipeline: adaptive streaming, multi-codec orchestra
 ### 🧠 [Second Brain](https://github.com/CBahtaria/second-brain) — private
 
 Obsidian-style knowledge vault. 29 cross-linked wiki articles + 28 studio agents compounding knowledge via per-session `## Evolution Log` entries. Karpathy-style synthesis pipeline (`<scratchpad>` bef[...]
+
+---
+
+### 🌐 [BRT Inc.](https://github.com/CBahtaria/brt-inc) — public
+
+**Operator website + internal toolkit** · [brtinc.vercel.app](https://brtinc.vercel.app) · Pure HTML/CSS/JS + Supabase + Vercel · No build step
+
+Auth-gated internal tools: CRM (kanban + table view), proposal generator, service agreement templates, client onboarding intake, Stripe webhook handler, Resend email delivery.
+
+**2026-06-15 overhaul:** 5-layer CSS `@layer` cascade (reset → tokens → base → components → utilities), 3-palette `[data-theme]` system with `localStorage` persistence and OS-preference fallback (Carbon dark `#0B0B0C` / Aerospace White `#F8F9FA` / Midnight Steel `#040608`), Space Grotesk + Geist Mono replacing Inter. 4-column bento portfolio grid with CSS `@property --border-angle` animated gradient borders. All inline JS/CSS extracted to `src/js/main.js` + `src/css/main.css` — `'unsafe-inline'` removed from `script-src`. Lucide icons (drone/satellite/radar/shield-check), PWA manifest, `robots.txt`, `sitemap.xml`, `404.html`. Braintrust eval pipeline (12 `ExactMatch` scored checks). 6 `CREATE INDEX CONCURRENTLY` on `user_id`/`created_at`/`invoice_number`.
+
+```
+HTML · CSS (@layer · @property · scroll-driven) · JavaScript · Supabase · Vercel · Node.js · Resend · Stripe
+```
 
 ---
 

@@ -73,7 +73,7 @@ flowchart TB
 
 ## Now (week of 2026-06-15)
 
-- **brt-inc** — Full overhaul shipped. 5-layer CSS `@layer`, 3-palette theme system (Carbon dark / Aerospace White / Midnight Steel), Space Grotesk + Geist Mono, 4-col bento portfolio grid, `@property` animated gradient borders. Inline JS/CSS extracted — `unsafe-inline` removed from `script-src`. Lucide icons, PWA manifest, Braintrust eval pipeline (12 scored checks), 6 DB indexes. Live at [brtinc.vercel.app](https://brtinc.vercel.app).
+- **brt-inc** — Full overhaul shipped. 5-layer CSS `@layer`, 3-palette theme system (Carbon dark / Aerospace White / Midnight Steel), Space Grotesk + Geist Mono, 4-col bento portfolio grid, `@property` animated gradient borders. Inline JS/CSS extracted — `unsafe-inline` removed from `script-src`. Lucide icons, PWA manifest, Braintrust eval pipeline (12 scored checks), 6 DB indexes. Live at [brt-inc.vercel.app](https://brt-inc.vercel.app).
 - **brt-uav-ecosystem** — Zig 0.14.0 onboard companion: SE(3) Lie groups (comptime generics), 13-state EKF (pos + vel + attitude + gyro bias, Mahalanobis gating), zero-alloc MAVLink 2 parser (X.25 CRC, packed structs), AES-GCM-256 per-packet auth (counter nonce, subject-bound AD), NATS edge gateway with 4096-slot ring buffer. Cross-compiles to `aarch64-linux-musl` (Jetson Orin / RPi 5). Tests passing.
 - **sentinel** — All 9 audit findings resolved (3 Critical + 6 High). Env-var secret management, PDO prepared statements throughout, session fixation fix, security headers on all API responses, login lockout enforcement. 22 files patched, 0 regressions.
 - **agentic-uav-stack** — Merkle audit trail integrated into sentinel bridge. SHA-256 Merkle tree with O(log n) inclusion proofs publishing checkpoint root every 100 events to NATS `uav.v1.audit.merkle_root`. 11/11 Merkle tests passing.
@@ -172,7 +172,7 @@ Obsidian-style knowledge vault. 29 cross-linked wiki articles + 28 studio agents
 
 ### 🌐 [BRT Inc.](https://github.com/CBahtaria/brt-inc) — public
 
-**Operator website + internal toolkit** · [brtinc.vercel.app](https://brtinc.vercel.app) · Pure HTML/CSS/JS + Supabase + Vercel · No build step
+**Operator website + internal toolkit** · [brt-inc.vercel.app](https://brt-inc.vercel.app) · Pure HTML/CSS/JS + Supabase + Vercel · No build step
 
 Auth-gated internal tools: CRM (kanban + table view), proposal generator, service agreement templates, client onboarding intake, Stripe webhook handler, Resend email delivery.
 

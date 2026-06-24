@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Charles Bartaria — CV</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=DM+Sans:wght@300;400;500;600;700&display=swap');
+
+  :root {
+    --bg:        #06090f;
+    --bg2:       #0d1320;
+    --bg3:       #111827;
+    --border:    #1e2d42;
+    --purple:    #8b5cf6;
+    --cyan:      #06b6d4;
+    --pink:      #ff006e;
+    --amber:     #f59e0b;
+    --green:     #10b981;
+    --text:      #e2e8f0;
+    --muted:     #64748b;
+    --dim:       #94a3b8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 13.5px;
+    line-height: 1.6;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ── Grid overlay ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(6,182,212,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(6,182,212,0.025) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 52px 56px;
+  }
+
+  /* ══ HEADER ══ */
+  header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 32px;
+    align-items: start;
+    margin-bottom: 44px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 120px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--cyan), var(--purple));
+  }
+
+  .name-block h1 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: #fff;
+    line-height: 1.1;
+  }
+
+  .name-block h1 span.bracket {
+    color: var(--cyan);
+    font-weight: 300;
+  }
+
+  .tagline {
+    margin-top: 8px;
+    font-size: 13px;
+    color: var(--dim);
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.3px;
+  }
+
+  .tagline .tier {
+    display: inline-block;
+    margin-right: 12px;
+  }
+  .tagline .tier.advisory { color: var(--purple); }
+  .tagline .tier.executive { color: var(--cyan); }
+  .tagline .tier.reactive { color: var(--pink); }
+
+  .contact-block {
+    text-align: right;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    color: var(--dim);
+    line-height: 1.9;
+  }
+
+  .contact-block a { color: var(--cyan); text-decoration: none; }
+  .contact-block .loc { color: var(--muted); }
+
+  /* ══ SECTION ══ */
+  section {
+    margin-bottom: 36px;
+  }
+
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ══ SUMMARY ══ */
+  .summary-text {
+    font-size: 14px;
+    color: var(--dim);
+    line-height: 1.75;
+    max-width: 780px;
+  }
+
+  .summary-text strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  /* ══ PROJECTS ══ */
+  .project {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 0 28px;
+    margin-bottom: 28px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .project:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .project-meta {
+    padding-top: 3px;
+  }
+
+  .project-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+
+  .project-name .vis {
+    font-size: 9px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    padding: 2px 6px;
+    border-radius: 3px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+
+  .vis.private { background: rgba(139,92,246,0.15); color: var(--purple); border: 1px solid rgba(139,92,246,0.3); }
+  .vis.public  { background: rgba(6,182,212,0.1);  color: var(--cyan);   border: 1px solid rgba(6,182,212,0.25); }
+
+  .project-type {
+    font-size: 11px;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 8px;
+  }
+
+  .project-date {
+    font-size: 11px;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .project-stack {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 3px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    background: var(--bg2);
+  }
+
+  .tag.py  { border-color: rgba(139,92,246,0.4); color: rgba(139,92,246,0.9); background: rgba(139,92,246,0.07); }
+  .tag.ts  { border-color: rgba(6,182,212,0.4);  color: rgba(6,182,212,0.9);  background: rgba(6,182,212,0.07); }
+  .tag.cpp { border-color: rgba(255,0,110,0.4);  color: rgba(255,0,110,0.9);  background: rgba(255,0,110,0.07); }
+  .tag.sh  { border-color: rgba(245,158,11,0.4); color: rgba(245,158,11,0.9); background: rgba(245,158,11,0.07); }
+  .tag.php { border-color: rgba(16,185,129,0.4); color: rgba(16,185,129,0.9); background: rgba(16,185,129,0.07); }
+
+  .project-body { }
+
+  .project-headline {
+    font-size: 13.5px;
+    color: var(--text);
+    font-weight: 500;
+    margin-bottom: 8px;
+    line-height: 1.5;
+  }
+
+  .bullets {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .bullets li {
+    font-size: 12.5px;
+    color: var(--dim);
+    padding: 2.5px 0 2.5px 16px;
+    position: relative;
+    line-height: 1.55;
+  }
+
+  .bullets li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--cyan);
+    font-size: 10px;
+    top: 4px;
+  }
+
+  .bullets li strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .bullets li .num {
+    color: var(--amber);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+  }
+
+  /* Achievement pill */
+  .achievement {
+    display: inline-block;
+    background: rgba(16,185,129,0.1);
+    border: 1px solid rgba(16,185,129,0.25);
+    color: var(--green);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 3px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+
+  /* ══ PRINCIPLES ══ */
+  .principles-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .principle {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--purple);
+    padding: 12px 14px;
+    border-radius: 0 4px 4px 0;
+    font-size: 12px;
+    color: var(--dim);
+    line-height: 1.5;
+  }
+
+  .principle strong {
+    display: block;
+    color: var(--text);
+    font-size: 12px;
+    margin-bottom: 3px;
+    font-weight: 600;
+  }
+
+  /* ══ SKILLS ══ */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .skill-group { }
+
+  .skill-group-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--purple);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .skill-list {
+    font-size: 12px;
+    color: var(--dim);
+    line-height: 1.8;
+  }
+
+  .skill-list span {
+    display: inline-block;
+    color: var(--dim);
+  }
+
+  .skill-list span.hl { color: var(--text); }
+
+  /* ══ TIER BADGE ══ */
+  .tier-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 3px;
+    margin-top: 8px;
+  }
+
+  .tier-badge.advisory { background: rgba(139,92,246,0.12); color: var(--purple); border: 1px solid rgba(139,92,246,0.3); }
+  .tier-badge.executive { background: rgba(6,182,212,0.1);  color: var(--cyan);   border: 1px solid rgba(6,182,212,0.25); }
+  .tier-badge.reactive  { background: rgba(255,0,110,0.1);  color: var(--pink);   border: 1px solid rgba(255,0,110,0.25); }
+  .tier-badge.algo      { background: rgba(245,158,11,0.1); color: var(--amber);  border: 1px solid rgba(245,158,11,0.25); }
+  .tier-badge.infra     { background: rgba(16,185,129,0.1); color: var(--green);  border: 1px solid rgba(16,185,129,0.25); }
+  .tier-badge.web       { background: rgba(99,102,241,0.1); color: #818cf8;        border: 1px solid rgba(99,102,241,0.25); }
+
+  .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+    display: inline-block;
+  }
+
+  /* ══ ALGORITHMS BLOCK ══ */
+  .algo-block {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-top: 2px solid var(--amber);
+    padding: 16px 18px;
+    border-radius: 0 0 4px 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    color: var(--dim);
+    line-height: 1.7;
+    margin-top: 10px;
+  }
+
+  .algo-block .formula {
+    color: var(--amber);
+    font-weight: 500;
+  }
+
+  /* ══ FOOTER ══ */
+  footer {
+    margin-top: 44px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-left {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+  }
+
+  .footer-right {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+  }
+
+  /* ══ PRINT ══ */
+  @media print {
+    body { background: var(--bg); }
+    body::before { display: none; }
+    .page { padding: 32px 40px; }
+    @page { margin: 0; size: A4; }
+  }
+
+  /* ── stat chips ── */
+  .stat-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+  }
+
+  .stat {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    padding: 3px 9px;
+    border-radius: 3px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--dim);
+  }
+
+  .stat .val {
+    color: var(--amber);
+    font-weight: 700;
+  }
+
+  .stat .unit { color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ══════════════════════════════ HEADER ══════════════════════════════ -->
+  <header>
+    <div class="name-block">
+      <h1><span class="bracket">&lt;</span>Charles Bartaria<span class="bracket">/&gt;</span></h1>
+      <div class="tagline">
+        <span class="tier advisory">● Advisory AI</span>
+        <span class="tier executive">● DAL-A Executive</span>
+        <span class="tier reactive">● 1 kHz Reactive</span>
+      </div>
+      <div style="margin-top:12px; font-size:13px; color:var(--dim); line-height:1.6; max-width:500px;">
+        Solo engineer building autonomous aerial systems from silicon to cloud.
+        Applies aerospace safety discipline — DAL-A, formal verification,
+        N-version dispatch — to every layer of the stack.
+      </div>
+    </div>
+    <div class="contact-block">
+      <div>charleskris9@gmail.com</div>
+      <div><a href="https://github.com/CBahtaria">github.com/CBahtaria</a></div>
+      <div><a href="https://linkedin.com/in/charles-bartaria">linkedin.com/in/charles-bartaria</a></div>
+      <div class="loc">Mbabane, Eswatini</div>
+      <div class="loc" style="margin-top:8px; font-size:10px;">2026-06-24</div>
+    </div>
+  </header>
+
+  <!-- ══════════════════════════════ SUMMARY ══════════════════════════════ -->
+  <section>
+    <div class="section-label">Profile</div>
+    <p class="summary-text">
+      Designed, built, and shipped a <strong>three-tier autonomous drone platform</strong> from bare-metal PX4/NuttX
+      (1 kHz reactive) through a DAL-A safety governor (10–50 Hz executive) to a
+      circuit-breaker-backed AI router (advisory). Delivered a <strong>military command &amp; control system</strong>
+      for the Unified Eswatini Defence Force. Implemented <strong>Levin-optimal program search</strong>
+      from first principles — provably asymptotically optimal with three speed modifications.
+      Works where correctness is not negotiable: formal invariants, tamper-evident audit,
+      supply-chain hygiene, and CI-gated DAL-A rules before any feature ships.
+    </p>
+  </section>
+
+  <!-- ══════════════════════════════ PROJECTS ══════════════════════════════ -->
+  <section>
+    <div class="section-label">Engineering Work</div>
+
+    <!-- agentic-uav-stack -->
+    <div class="project">
+      <div class="project-meta">
+        <div class="project-name">
+          agentic-uav-stack
+          <span class="vis private">PRIVATE</span>
+        </div>
+        <div class="project-type">Autonomous Aerial Platform</div>
+        <div class="project-date">2025 – present</div>
+        <div style="margin-top:8px;">
+          <span class="tier-badge reactive"><span class="dot"></span>Reactive</span>
+          <span class="tier-badge executive"><span class="dot"></span>Executive</span>
+          <span class="tier-badge advisory"><span class="dot"></span>Advisory</span>
+        </div>
+        <div class="project-stack">
+          <span class="tag py">Python</span>
+          <span class="tag cpp">C++</span>
+          <span class="tag ts">TypeScript</span>
+          <span class="tag sh">ROS 2</span>
+          <span class="tag sh">NuttX</span>
+        </div>
+        <div class="stat-row" style="margin-top:10px;">
+          <span class="stat"><span class="val">783</span> <span class="unit">tests</span></span>
+          <span class="stat">SRL-<span class="val">3</span> HIL</span>
+          <span class="stat">DAL-<span class="val">A</span></span>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-headline">
+          Multi-scale drone platform with a three-tier safety architecture separating
+          reactive control, formal executive authority, and advisory AI — an LLM can
+          influence flight decisions without touching the command path.
+        </div>
+        <ul class="bullets">
+          <li><strong>Reactive layer</strong> — PX4 + NuttX RTOS at <span class="num">1 kHz</span>: attitude control, motor mix, safety pilot override. MAVLink 2 message signing (WIP).</li>
+          <li><strong>Safety governor</strong> — <span class="num">10–50 Hz</span>, DAL-A. No <code>eval</code>/<code>exec</code>/<code>getattr</code> in the hot path. Returns <code>NO_GO</code> on any exception; decision variables pre-bound before <code>try</code> to prevent stale-setpoint propagation.</li>
+          <li><strong>Simplex formal shield</strong> — 5 geometric invariants enforced every governor tick. CI script rejects any code touching safety-critical paths that violates DAL-A rules.</li>
+          <li><strong>Brain daemon with key isolation</strong> — <code>brain/daemon.py</code> owns every secret; child processes launched with <code>env={}</code>. Auditable via <code>make audit-keys</code> (scans <code>/proc/*/environ</code>).</li>
+          <li><strong>Octogent multi-agent vulnerability scanner</strong> — 9 concurrent persona children (red-team, supply-chain, insider-threat, trojan-horse…) + 1 synthesis agent. Explicit failure containment per child.</li>
+          <li><strong>N-version dispatch</strong> — <code>shared/security/divtab.py</code>: silent divergence between independent implementations is the tamper signal.</li>
+          <li><strong>UAVZMA audit codec</strong> — LZ77 + Markov model; <span class="num">~46%</span> smaller than UAVZ on governor audit batches.</li>
+          <li><strong>EAV status registry</strong> — NATS KV + SQLite mirror. No schema migrations; write-once event log.</li>
+          <li><strong>Deadman's switch</strong> with NTP-attack detection. SROS2 keystore + DDS Security; only the <code>ai_agent</code> enclave may publish <code>/ai/suggested_action</code>.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- sentinel -->
+    <div class="project">
+      <div class="project-meta">
+        <div class="project-name">
+          UEDF SENTINEL v5.0
+          <span class="vis public">PUBLIC</span>
+        </div>
+        <div class="project-type">Military C2 System</div>
+        <div class="project-date">2025 – present</div>
+        <div style="margin-top:8px;">
+          <span class="tier-badge executive"><span class="dot"></span>Command &amp; Control</span>
+        </div>
+        <div class="project-stack">
+          <span class="tag php">PHP 8</span>
+          <span class="tag sh">MySQL</span>
+          <span class="tag ts">WebSocket</span>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-headline">
+          Military command &amp; control system for the Unified Eswatini Defence Force.
+          Real-time drone fleet management, threat detection, and operator interfaces
+          designed for national-library compliance posture.
+        </div>
+        <ul class="bullets">
+          <li>Real-time <strong>drone fleet telemetry</strong> over WebSocket; subscribes to the same NATS namespace (<code>uav.v1.*</code>) as agentic-uav-stack.</li>
+          <li><strong>RBAC + 2FA</strong>, full audit logging. Threat detection with alert escalation.</li>
+          <li>Pre-production pending audit remediation — <span class="num">3 Critical</span> + <span class="num">6 High</span> findings tracked in <code>SECURITY-AUDIT-2026-05-21.md</code>. No production until queue is empty.</li>
+          <li>Design audience: defence forces, government officials, royal household — operator interfaces compress 6 data signals into the space a marketing site uses for one headline.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- levin-search -->
+    <div class="project">
+      <div class="project-meta">
+        <div class="project-name">
+          levin-search
+          <span class="vis private">PRIVATE</span>
+        </div>
+        <div class="project-type">Algorithms / Computability</div>
+        <div class="project-date">2026</div>
+        <div style="margin-top:8px;">
+          <span class="tier-badge algo"><span class="dot"></span>Levin-Optimal</span>
+        </div>
+        <div class="project-stack">
+          <span class="tag py">Python 3.11+</span>
+          <span class="tag sh">stdlib only</span>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-headline">
+          Speed-optimised implementation of Levin's Universal Search over BrainFuck programs
+          with a pluggable success predicate. Asymptotically optimal: finds any computable
+          function in O(2<sup>|p*|</sup> · t*) total work.
+        </div>
+        <ul class="bullets">
+          <li><strong>Incremental execution</strong> — programs never restart; delta steps in phase i = <code>2^(i−|p|−1)</code>. Proved correct via BF determinism: incremental ≡ restart-per-phase with zero wasted work.</li>
+          <li><strong>Dead-set pruning</strong> — halted programs permanently removed from the active dict; never revisited across phases.</li>
+          <li><strong>O(1) bracket precomputation</strong> — jump table built once at machine construction; programs with unbalanced brackets rejected before tape allocation.</li>
+          <li><strong>Kolmogorov complexity CLI</strong> — <code>find</code>, <code>run</code>, <code>kolmogorov</code> subcommands. Estimates BF bit-length vs raw bit-length with compression ratio.</li>
+        </ul>
+        <div class="algo-block">
+          <strong style="color:var(--text);">Algorithm (pseudocode)</strong><br>
+          for i := 1, 2, … do<br>
+          &nbsp;&nbsp;for each program p with |p| ≤ i do<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;run p for at most <span class="formula">2^(i − |p|)</span> total steps<br>
+          &nbsp;&nbsp;end for<br>
+          end for<br><br>
+          Optimality: O(<span class="formula">2^|p*| · t*</span>) — matches any reference machine up to the constant 2^|p*|.
+        </div>
+      </div>
+    </div>
+
+    <!-- maize-leaf-classifier -->
+    <div class="project">
+      <div class="project-meta">
+        <div class="project-name">
+          maize-leaf-classifier
+          <span class="vis public">PUBLIC</span>
+        </div>
+        <div class="project-type">Computer Vision / ML</div>
+        <div class="project-date">2026</div>
+        <div style="margin-top:8px;">
+          <span class="tier-badge algo"><span class="dot"></span>AI/ML</span>
+        </div>
+        <div class="project-stack">
+          <span class="tag py">Python</span>
+          <span class="tag sh">TensorFlow</span>
+          <span class="tag ts">React PWA</span>
+          <span class="tag sh">FastAPI</span>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-headline">
+          Agricultural computer vision classifier for maize leaf disease detection targeting
+          smallholder farmers in Sub-Saharan Africa. InceptionV3 backbone, production-deployed
+          via blue-green zero-downtime strategy on Render + Vercel.
+        </div>
+        <ul class="bullets">
+          <li><strong>InceptionV3 transfer learning</strong> — binary classification (healthy vs diseased), calibrated confidence scores, lazy TensorFlow import for cold-start performance.</li>
+          <li><strong>FastAPI inference server</strong> — X-API-Key auth on <code>/predict</code>, <code>/health</code> endpoint, rate-limited via <code>slowapi</code>. CI validates model artifact SHA-256 on every push.</li>
+          <li><strong>React PWA</strong> — mobile-first, offline-capable, installable. Deployed to Vercel with automatic preview URLs per PR.</li>
+          <li><strong>Blue-green deploy pipeline</strong> — <code>release-model.sh</code> + <code>wire-frontend.sh</code> scripts; zero-downtime model swaps. Model artifacts distributed via GitHub Releases.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- second-brain -->
+    <div class="project">
+      <div class="project-meta">
+        <div class="project-name">
+          second-brain
+          <span class="vis private">PRIVATE</span>
+        </div>
+        <div class="project-type">Knowledge Infrastructure</div>
+        <div class="project-date">2025 – present</div>
+        <div style="margin-top:8px;">
+          <span class="tier-badge advisory"><span class="dot"></span>AI-Augmented</span>
+        </div>
+        <div class="project-stack">
+          <span class="tag py">Python</span>
+          <span class="tag sh">Qdrant</span>
+          <span class="tag sh">ONNX</span>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-headline">
+          Obsidian-style knowledge vault with 29 cross-linked wiki articles and 28 studio
+          agents that compound knowledge autonomously via per-session Evolution Log entries.
+        </div>
+        <ul class="bullets">
+          <li>Karpathy-style synthesis pipeline — <code>&lt;scratchpad&gt;</code> before article emission; no hallucinated facts enter the vault.</li>
+          <li><code>AGENT_EVOLUTION</code> coworker auto-appends Evolution Log entries from claude-mem observations daily at 23:30 — the vault writes itself.</li>
+          <li>Qdrant vector store + ONNX embedding server for semantic retrieval. SQLite FTS5 for keyword search.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- production-compression-framework -->
+    <div class="project">
+      <div class="project-meta">
+        <div class="project-name">
+          production-compression&#8209;framework
+          <span class="vis private">PRIVATE</span>
+        </div>
+        <div class="project-type">Infrastructure / Edge</div>
+        <div class="project-date">2025 – present</div>
+        <div style="margin-top:8px;">
+          <span class="tier-badge infra"><span class="dot"></span>Edge-deployed</span>
+        </div>
+        <div class="project-stack">
+          <span class="tag sh">Bash</span>
+          <span class="tag sh">Shell</span>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-headline">
+          Production-grade compression pipeline for high-throughput sensor data at the edge
+          of the UAV pipeline. Adaptive streaming with multi-codec orchestration.
+        </div>
+        <ul class="bullets">
+          <li>Adaptive codec selection based on data profile — same discipline as UAVZMA (LZ77+Markov) applied to the sensor pipeline layer.</li>
+          <li>Edge-deployed: minimal runtime dependencies, fits on Jetson Orin alongside ROS 2 and the safety governor.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- studio-p -->
+    <div class="project">
+      <div class="project-meta">
+        <div class="project-name">
+          studio-p
+          <span class="vis public">PUBLIC</span>
+        </div>
+        <div class="project-type">Full-Stack Web Platform</div>
+        <div class="project-date">2026</div>
+        <div style="margin-top:8px;">
+          <span class="tier-badge web"><span class="dot"></span>Production</span>
+        </div>
+        <div class="project-stack">
+          <span class="tag ts">TypeScript</span>
+          <span class="tag ts">React 19</span>
+          <span class="tag sh">Supabase</span>
+          <span class="tag sh">Vercel</span>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-headline">
+          Production barbershop booking platform — same engineering discipline (compliance
+          before features, fail-safe defaults, audit-first) applied outside the aerospace domain.
+        </div>
+        <ul class="bullets">
+          <li>React 19 + TypeScript + Supabase + Vercel. Pake desktop wrapper for offline-first operation.</li>
+          <li>Full booking flow, staff scheduling, real-time availability. Designed so a non-technical operator can run it cold.</li>
+        </ul>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ══════════════════════════════ PRINCIPLES ══════════════════════════════ -->
+  <section>
+    <div class="section-label">Engineering Principles</div>
+    <div class="principles-grid">
+      <div class="principle">
+        <strong>No AI in the flight command path</strong>
+        AI is advisory. Formal shield + governor have final authority. Engagement recommendations require explicit human authorization.
+      </div>
+      <div class="principle">
+        <strong>DAL-A invariants are CI-gated</strong>
+        <code>check_dal_a_rules.py</code> rejects <code>eval</code>, <code>exec</code>, <code>getattr</code>, <code>__import__</code> in safety-critical files on every push.
+      </div>
+      <div class="principle">
+        <strong>Fail-safe means NO_GO</strong>
+        Governor returns NO_GO on any exception. Decision variables are pre-bound before <code>try</code> to prevent stale-setpoint propagation.
+      </div>
+      <div class="principle">
+        <strong>API keys never leave the daemon</strong>
+        <code>brain/daemon.py</code> loads <code>.env</code>, pops secrets from <code>os.environ</code>, spawns children with <code>env={}</code>. Weekly audit via <code>make audit-keys</code>.
+      </div>
+      <div class="principle">
+        <strong>Compliance gates before features</strong>
+        Tamper-evident audit before "observability". Deterministic safety before clever AI. Sentinel ships zero features until the audit queue is empty.
+      </div>
+      <div class="principle">
+        <strong>Multi-persona security review</strong>
+        9 concurrent adversarial personas weekly — red-team, supply-chain, insider-threat, trojan-horse, cat-burglar — with explicit containment per child.
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════ TECH ══════════════════════════════ -->
+  <section>
+    <div class="section-label">Technology</div>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <div class="skill-group-name">Languages</div>
+        <div class="skill-list">
+          <span class="hl">Python 3.12</span> (CI matrix 3.11–3.13)<br>
+          <span class="hl">TypeScript</span> · <span class="hl">C++</span><br>
+          PHP 8 · Bash · SQL
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-name">Embedded / Realtime</div>
+        <div class="skill-list">
+          <span class="hl">ROS 2 Jazzy</span> · <span class="hl">NuttX RTOS</span><br>
+          PX4 Autopilot · MAVLink 2<br>
+          DDS / SROS2 · Jetson Orin
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-name">Infrastructure</div>
+        <div class="skill-list">
+          Docker Compose · <span class="hl">Kubernetes</span><br>
+          MicroShift · Helm · Ansible<br>
+          systemd · RHEL9 · Fedora
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-name">Data Plane</div>
+        <div class="skill-list">
+          <span class="hl">NATS JetStream</span> (14 streams)<br>
+          Qdrant · SQLite (WAL + FTS5)<br>
+          DuckDB · PostgreSQL · MySQL
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-name">AI / ML</div>
+        <div class="skill-list">
+          Claude Sonnet/Opus · <span class="hl">Ollama</span><br>
+          SFT · RLVR · GGUF quantization<br>
+          Off-policy SAC · circuit breaker
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-name">Security</div>
+        <div class="skill-list">
+          SROS2 · <span class="hl">TPM 2.0</span> · DDS Security<br>
+          cosign · NTS-NTP · MAVLink signing<br>
+          Supply-chain hygiene (XZ-aware)
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════ FOOTER ══════════════════════════════ -->
+  <footer>
+    <div class="footer-left">
+      github.com/CBahtaria · charleskris9@gmail.com
+    </div>
+    <div class="footer-right">
+      Mbabane, Eswatini · 2026-06-24
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

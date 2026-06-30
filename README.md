@@ -71,8 +71,9 @@ flowchart TB
 
 ---
 
-## Now (week of 2026-06-15)
+## Now (week of 2026-07-01)
 
+- **MahlanyaRPG** — Phases 0–10 complete + ship infrastructure deployed. Phase 10 delivered: `UHardwareAdaptiveScaler` (4-tier CVar writes), `UDynamicRuntimeThrottle` (hysteresis frame budget), `FSimulationTrustMatrix` (thread-safe, extrapolation + trust scoring), `UYearChangeOrchestrator` (pre-allocated 256-slot event pool, BFS spread across ticks), `FSimulationTracer` (Unreal Insights channel + SCOPED_SIM_PHASE), `HistoricalValidator` (parallel validation via ThreadPoolExecutor), `check_regression.py` (15% regression gate). Ship phase: Steam Cloud VDF, iOS `PrivacyInfo.xcprivacy` (4 API reasons), Android manifest additions, `UMahlanyaSaveSubsystem` (async save/load, full world-state snapshot), 12 cross-platform achievements (Steam + Game Center). 310 pipeline tests, 0 regressions. Pre-launch.
 - **brt-inc** — Full overhaul shipped. 5-layer CSS `@layer`, 3-palette theme system (Carbon dark / Aerospace White / Midnight Steel), Space Grotesk + Geist Mono, 4-col bento portfolio grid, `@property` animated gradient borders. Inline JS/CSS extracted — `unsafe-inline` removed from `script-src`. Lucide icons, PWA manifest, Braintrust eval pipeline (12 scored checks), 6 DB indexes. Live at [brt-inc.vercel.app](https://brt-inc.vercel.app).
 - **brt-uav-ecosystem** — Zig 0.14.0 onboard companion: SE(3) Lie groups (comptime generics), 13-state EKF (pos + vel + attitude + gyro bias, Mahalanobis gating), zero-alloc MAVLink 2 parser (X.25 CRC, packed structs), AES-GCM-256 per-packet auth (counter nonce, subject-bound AD), NATS edge gateway with 4096-slot ring buffer. Cross-compiles to `aarch64-linux-musl` (Jetson Orin / RPi 5). Tests passing.
 - **sentinel** — All 9 audit findings resolved (3 Critical + 6 High). Env-var secret management, PDO prepared statements throughout, session fixation fix, security headers on all API responses, login lockout enforcement. 22 files patched, 0 regressions.
@@ -81,6 +82,37 @@ flowchart TB
 ---
 
 ## Featured projects
+
+### 🌍 [Mahlanya RPG](https://github.com/CBahtaria/MahlanyaRPG) — public
+
+**Swazi historical 3D RPG** · UE5 C++ · Zig SIMD · Python · Pre-Launch
+
+10 simulation plugins. 10 phases complete. 310 pipeline tests, 0 regressions.
+
+Earth-science accuracy as a design constraint: 10m Copernicus DEM (Eswatini bounding box, UTM Zone 36S) eroded through 5,000 geomorphological passes — thermal, fluvial, aeolian, mass-wasting — via Zig SIMD `@Vector(8, f32)` kernels compiled to `libmahlanya_compute.so`. D-infinity flow accumulation (Tarboton 1997) extracts 6 river systems. Centroidal Voronoi Tessellation with Swazi social constraint tensors places settlements whose geometry communicates hierarchy without UI text.
+
+| Plugin | What it does |
+|---|---|
+| `SimulationBusPlugin` | Typed multicast event bus decoupling all plugins |
+| `MicroclimateEngine` | Barometric pressure random walk → orographic rainfall → lightning charge accumulation |
+| `SibayaEngine` | Runtime Voronoi recompute on demographic events (marriage, cattle raid, family merge) |
+| `LocomotionPhysicsPlugin` | Anisotropic friction tensors (8 materials × wet/dry), biomechanical altitude fatigue, Chaos slip |
+| `GeometricAudioPlugin` | 64-ray Monte Carlo acoustic ray-caster, Hosek-Wilkie spectral sky LUTs, bioacoustics |
+| `EconomySimulatorPlugin` | Cattle-based economy; colonial concession infection; lobola → settlement recompute |
+| `EmergentNarrativePlugin` | Threshold-triggered quest generation from simulation state — no hardcoded scripts |
+| `EcologySimulatorPlugin` | Lotka-Volterra ODE grid (6 prey–predator pairs), seasonal migration |
+| `KnowledgeGraphPlugin` | Historical accuracy constraint graph — structurally prevents false NPC statements |
+| `ErosionRuntimePlugin` | GPU compute shader (ErosionCS.usf) on rain events; session-local displacement |
+
+**Phase 10 (Production Optimization):** `UHardwareAdaptiveScaler` (4-tier, CVar writes), `UDynamicRuntimeThrottle` (hysteresis frame budget), `FSimulationTrustMatrix` (thread-safe trust scoring + extrapolation), `UYearChangeOrchestrator` (256-slot pre-allocated event pool, BFS spread across ticks), `FSimulationTracer` (Unreal Insights channel), `HistoricalValidator` (parallel ThreadPoolExecutor across 5 validators), `check_regression.py` (15% gate on 7 metrics).
+
+**Ship phase:** Steam Cloud VDF (3 save slots + chronicle), iOS `PrivacyInfo.xcprivacy` (4 API reasons), Android manifest additions, `UMahlanyaSaveSubsystem` (async save/load, world-state snapshot/restore), 12 cross-platform achievements (Steam + Game Center), `cert_validator.py` (UE5-specific 5-suite cert gate).
+
+```
+UE5 C++ · Zig 0.13+ · Python 3.11 · GDAL · Unreal Insights · Steam SDK 1.58 · ASTC
+```
+
+---
 
 ### 🔒 [UEDF Sentinel v5.0](https://github.com/CBahtaria/sentinel) — public
 
@@ -199,13 +231,14 @@ HTML · CSS (@layer · @property · scroll-driven) · JavaScript · Supabase · 
 
 | Layer | Technologies |
 |---|---|
-| **Languages** | Python 3.12 · PHP 8 · TypeScript · JavaScript · SQL · C++ · Bash |
+| **Languages** | Python 3.12 · PHP 8 · TypeScript · JavaScript · SQL · C++ · Zig 0.13+ · Bash |
 | **Web** | FastAPI · React 19 · Plotly Dash · Flask + Socket.IO · Ratchet WebSocket · SQLAlchemy |
 | **Data** | NATS JetStream · PostgreSQL · MySQL 8 · Supabase · SQLite (WAL + FTS5) · DuckDB · Qdrant |
 | **DevOps** | Docker Compose · Kubernetes + MicroShift · Helm · Nginx · GitHub Actions · Prometheus · Grafana · Ansible |
 | **ML / Forecasting** | ARIMA/SARIMA · Prophet · Monte Carlo · pandas · scikit-learn · GGUF quantization |
 | **Mathematics** | Time-series decomposition · Stochastic modeling · Complexity theory (Kolmogorov, algorithmic information) · Formal verification · Quaternion algebra (attitude control) |
 | **Security** | OWASP Top 10 · RBAC · JWT · PBKDF2 · 2FA/TOTP · SROS2 DDS Security · TPM 2.0 · cosign · NTS-NTP · MAVLink 2 signing |
+| **Game / UE5** | Unreal Engine 5 · GAS · World Partition · Nanite · Lumen · MetaSounds · Chaos Physics · PCG Framework · Unreal Insights |
 | **Testing** | PHPUnit · pytest · stress testing · integration tests · GitHub Actions CI |
 | **Runtime** | ROS 2 Jazzy · NuttX RTOS · Linux (Fedora dev, RHEL9, Jetson Orin) · systemd |
 | **AI** | Claude Sonnet/Opus ($5/day cap) · Ollama mistral:7b-q4 · hybrid router + circuit breaker · SFT · RLVR · distillation |

@@ -73,7 +73,7 @@ flowchart TB
 
 ## Now (week of 2026-07-01)
 
-- **MahlanyaRPG** — Phases 0–10 complete + ship infrastructure deployed. Phase 10 delivered: `UHardwareAdaptiveScaler` (4-tier CVar writes), `UDynamicRuntimeThrottle` (hysteresis frame budget), `FSimulationTrustMatrix` (thread-safe, extrapolation + trust scoring), `UYearChangeOrchestrator` (pre-allocated 256-slot event pool, BFS spread across ticks), `FSimulationTracer` (Unreal Insights channel + SCOPED_SIM_PHASE), `HistoricalValidator` (parallel validation via ThreadPoolExecutor), `check_regression.py` (15% regression gate). Ship phase: Steam Cloud VDF, iOS `PrivacyInfo.xcprivacy` (4 API reasons), Android manifest additions, `UMahlanyaSaveSubsystem` (async save/load, full world-state snapshot), 12 cross-platform achievements (Steam + Game Center). 310 pipeline tests, 0 regressions. Pre-launch.
+- **MahlanyaRPG** — Full cross-platform performance system shipped. 5-tier hardware auto-detection (UltraLowEnd iGPU → Ultra): complete per-tier rendering profiles set at boot (Nanite, Lumen, DynamicRes, shadow quality, frame-rate cap). `UPerformanceAutoTuner` monitors rolling FPS every second and micro-adjusts `r.ScreenPercentage` and `sg.ShadowQuality` within tier bounds. `UProximityLODSubsystem` forces lowest LOD + kills shadows for objects behind the player (tier-aware focus cone 15°–35°). `UDynamicRuntimeThrottle` now throttles rendering CVars on frame spikes. 316 pipeline tests, 19 performance CVars, 5 hardware tiers, pre-launch.
 - **brt-inc** — Full overhaul shipped. 5-layer CSS `@layer`, 3-palette theme system (Carbon dark / Aerospace White / Midnight Steel), Space Grotesk + Geist Mono, 4-col bento portfolio grid, `@property` animated gradient borders. Inline JS/CSS extracted — `unsafe-inline` removed from `script-src`. Lucide icons, PWA manifest, Braintrust eval pipeline (12 scored checks), 6 DB indexes. Live at [brt-inc.vercel.app](https://brt-inc.vercel.app).
 - **brt-uav-ecosystem** — Zig 0.14.0 onboard companion: SE(3) Lie groups (comptime generics), 13-state EKF (pos + vel + attitude + gyro bias, Mahalanobis gating), zero-alloc MAVLink 2 parser (X.25 CRC, packed structs), AES-GCM-256 per-packet auth (counter nonce, subject-bound AD), NATS edge gateway with 4096-slot ring buffer. Cross-compiles to `aarch64-linux-musl` (Jetson Orin / RPi 5). Tests passing.
 - **sentinel** — All 9 audit findings resolved (3 Critical + 6 High). Env-var secret management, PDO prepared statements throughout, session fixation fix, security headers on all API responses, login lockout enforcement. 22 files patched, 0 regressions.
@@ -87,7 +87,7 @@ flowchart TB
 
 **Swazi historical 3D RPG** · UE5 C++ · Zig SIMD · Python · Pre-Launch
 
-10 simulation plugins. 10 phases complete. 310 pipeline tests, 0 regressions.
+10 simulation plugins. 10 phases complete + full cross-platform performance system. 316 pipeline tests, 0 regressions.
 
 Earth-science accuracy as a design constraint: 10m Copernicus DEM (Eswatini bounding box, UTM Zone 36S) eroded through 5,000 geomorphological passes — thermal, fluvial, aeolian, mass-wasting — via Zig SIMD `@Vector(8, f32)` kernels compiled to `libmahlanya_compute.so`. D-infinity flow accumulation (Tarboton 1997) extracts 6 river systems. Centroidal Voronoi Tessellation with Swazi social constraint tensors places settlements whose geometry communicates hierarchy without UI text.
 
@@ -104,9 +104,11 @@ Earth-science accuracy as a design constraint: 10m Copernicus DEM (Eswatini boun
 | `KnowledgeGraphPlugin` | Historical accuracy constraint graph — structurally prevents false NPC statements |
 | `ErosionRuntimePlugin` | GPU compute shader (ErosionCS.usf) on rain events; session-local displacement |
 
-**Phase 10 (Production Optimization):** `UHardwareAdaptiveScaler` (4-tier, CVar writes), `UDynamicRuntimeThrottle` (hysteresis frame budget), `FSimulationTrustMatrix` (thread-safe trust scoring + extrapolation), `UYearChangeOrchestrator` (256-slot pre-allocated event pool, BFS spread across ticks), `FSimulationTracer` (Unreal Insights channel), `HistoricalValidator` (parallel ThreadPoolExecutor across 5 validators), `check_regression.py` (15% gate on 7 metrics).
+**Phase 10 (Production Optimization):** `UHardwareAdaptiveScaler` (5-tier, complete rendering CVar profiles per tier), `UDynamicRuntimeThrottle` (hysteresis frame budget + rendering throttle), `FSimulationTrustMatrix` (thread-safe trust scoring + extrapolation), `UYearChangeOrchestrator` (256-slot pre-allocated event pool, BFS spread across ticks), `FSimulationTracer` (Unreal Insights channel), `HistoricalValidator` (parallel ThreadPoolExecutor), `check_regression.py` (15% gate on 7 metrics).
 
-**Ship phase:** Steam Cloud VDF (3 save slots + chronicle), iOS `PrivacyInfo.xcprivacy` (4 API reasons), Android manifest additions, `UMahlanyaSaveSubsystem` (async save/load, world-state snapshot/restore), 12 cross-platform achievements (Steam + Game Center), `cert_validator.py` (UE5-specific 5-suite cert gate).
+**Cross-platform performance system:** `UProximityLODSubsystem` — view-based 3-tier LOD (Focus/Visible/Background) using dot-product view classification, `ForcedLodModel` overrides, shadow suppression for off-view objects, `VisibilityBasedAnimTickOption` per tier for NPC skeletons. `UPerformanceAutoTuner` — rolling 120-frame FPS monitor, micro-adjusts `r.ScreenPercentage` + `sg.ShadowQuality` in real-time within tier-locked bounds (3 bad evals → reduce, 15 good evals → recover). Hardware tiers: `UltraLowEnd` (iGPU, cone 15°) → `LowEnd` (cone 20°, 30fps) → `MidRange` (Nanite on, 60fps) → `HighEnd` (Lumen on) → `Ultra` (144fps, all max). 19 performance CVars.
+
+**Ship phase:** Steam Cloud VDF (3 save slots + chronicle), iOS `PrivacyInfo.xcprivacy` (4 API reasons), Android manifest, `UMahlanyaSaveSubsystem` (async save/load, world-state snapshot), 12 cross-platform achievements (Steam + Game Center), siSwati ↔ English localization (70 strings, `USiSwatiLocalizationSubsystem`).
 
 ```
 UE5 C++ · Zig 0.13+ · Python 3.11 · GDAL · Unreal Insights · Steam SDK 1.58 · ASTC

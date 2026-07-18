@@ -30,7 +30,7 @@ I build **production-grade software**: systems with test suites, CI/CD pipelines
 **Three areas I go deep on:**
 - **Security-conscious system design** — auth flows, RBAC, session management, secrets hygiene, OWASP Top 10
 - **Production infrastructure** — Docker, Nginx, GitHub Actions, Prometheus/Grafana, Kubernetes
-- **Applied mathematics & quantitative methods** — ARIMA/SARIMA time-series analysis, Prophet forecasting, Monte Carlo simulation, stochastic modeling, complexity analysis (Kolmogorov, algorithmic information theory), formal invariants
+- **Applied mathematics & quantitative methods** — SO(3) Lie groups, ARIMA/SARIMA, Prophet, Monte Carlo simulation, stochastic modeling, Kolmogorov complexity, formal invariants
 
 Available globally via [BRT Inc.](https://brtinc.dev) and [Upwork](https://upwork.com/freelancers/charlesbartaria).
 
@@ -45,11 +45,11 @@ flowchart TB
   end
   subgraph T2["Executive · 10–50 Hz · DAL-A"]
     GOV["Safety governor<br/>No eval/exec/getattr<br/>NO_GO on exception"]
-    SHIELD["Formal shield · 5 invariants"]
+    SHIELD["Formal shield · 5 invariants + 5 fog invariants"]
     DMS["Deadman switch<br/>NTP-attack detection"]
   end
   subgraph T1["Reactive · 1 kHz · on Pixhawk"]
-    PX4["PX4 · NuttX RTOS<br/>Attitude · motor mix"]
+    PX4["PX4 · NuttX RTOS<br/>Attitude quaternions · motor mix"]
   end
 
   AI -->|"suggestion (advisory)"| GOV
@@ -57,7 +57,7 @@ flowchart TB
   SHIELD --> GOV
   GOV --> DMS
   GOV -->|"approved setpoint"| PX4
-  PX4 -.->|"telemetry"| GOV
+  PX4 -.->|"telemetry + attitude_quat"| GOV
 
   classDef advisory fill:#1a0d2e,stroke:#8b5cf6,color:#e2e8f0
   classDef executive fill:#0a1e2e,stroke:#06b6d4,color:#e2e8f0
@@ -67,17 +67,19 @@ flowchart TB
   class T1,PX4 reactive
 ```
 
-**Key principle:** The AI never writes to the flight command path. The executive owns final authority. The reactive layer owns hard real-time. This separation is why an LLM can be useful in flight-adj[...]
+**Key principle:** The AI never writes to the flight command path. The executive owns final authority. The reactive layer owns hard real-time. This separation is why an LLM can be useful in flight-adjacent systems without being a liability.
 
 ---
 
-## Now (week of 2026-07-01)
+## Now (week of 2026-07-18)
 
-- **MahlanyaRPG** — Ship phase complete. Cross-platform performance system: 5-tier hardware auto-detection (UltraLowEnd iGPU → Ultra), complete per-tier rendering profiles (Nanite, Lumen, DynamicRes, shadow quality, frame-rate cap). `UPerformanceAutoTuner` micro-adjusts in real time. `UProximityLODSubsystem` focuses render budget on player's view direction. Legal docs (EULA, Privacy Policy, Third-Party Notices), Steam OSS wired (12 achievements), in-game `UGraphicsSettingsWidget`, first-run `UFirstRunPerformanceAdvisor`, `USiSwatiLocalizationSubsystem` (70 bilingual strings), Python simulation harness (mirrors UE5 subsystems — no GPU required, 6 tests). 316 pipeline tests, 19 performance CVars, 5 hardware tiers. Pre-launch.
-- **brt-inc** — Pinterest-inspired portfolio redesign shipped. Project filter matrix ([All] [Web Apps] [Security] [AI/ML] [Game Dev] [Systems]), business-value project descriptions, Sentinel featured as 2-column card, 3-package pricing (Micro-Projects / Full-Stack Build / Retainer), sticky CTA dock, geo meta tags. Live at [brt-inc.vercel.app](https://brt-inc.vercel.app).
-- **brt-uav-ecosystem** — Zig 0.14.0 onboard companion: SE(3) Lie groups (comptime generics), 13-state EKF (pos + vel + attitude + gyro bias, Mahalanobis gating), zero-alloc MAVLink 2 parser (X.25 CRC, packed structs), AES-GCM-256 per-packet auth (counter nonce, subject-bound AD), NATS edge gateway with 4096-slot ring buffer. Cross-compiles to `aarch64-linux-musl` (Jetson Orin / RPi 5). Tests passing.
-- **sentinel** — All 9 audit findings resolved (3 Critical + 6 High). Env-var secret management, PDO prepared statements throughout, session fixation fix, security headers on all API responses, login lockout enforcement. 22 files patched, 0 regressions.
-- **agentic-uav-stack** — Merkle audit trail integrated into sentinel bridge. SHA-256 Merkle tree with O(log n) inclusion proofs publishing checkpoint root every 100 events to NATS `uav.v1.audit.merkle_root`. 11/11 Merkle tests passing.
+- **agentic-uav-stack — Fog water harvesting** — Added complete fog condensation mission capability across the full stack. Four mission profiles: (1) boustrophedon grid survey at altitude bands → GeoJSON density map, (2) hover-and-collect with hydrophilic mesh payload, (3) deploy/retrieve fog nets between anchor points, (4) swarm formation array with Raft-elected leader. New hardware drivers: SHT31 (I2C humidity+temp, CRC-8), visibility sensor (serial), HX711 load cell + ADS1115 tension sensor. Kunkel (1984) LWC formula (visibility→g/m³), Magnus dew-point, FogCategory classification. Five new DAL-A invariants in shield.py: wind gate (>8 m/s blocks net/swarm), payload mass gate (>0.5 kg), formation gap gate (<3 m), net tension gate (>50 N), fog battery reserve (+10% RTH threshold in wet conditions) — all with `math.isfinite()` guards so NaN sensor readings → NO_GO. UAV_FOG NATS stream, FOG_HARVEST_ANALYSIS brain task, four mission YAML configs with Eswatini Malolotja coordinates. 116 new tests covering all six fog modules. 942 tests total.
+
+- **agentic-uav-stack — SO(3) Lie group geometry** — `shared/geometry/lie_so3.py`: multi-dimensional generalisation of e^(iπ)+1=0. `so3_hat/vee` map between ℝ³ and the so(3) Lie algebra (antisymmetric matrices). `so3_exp` implements Rodrigues' formula — the exact 3D Euler formula; at θ=π gives the element that squares to −I. `quat_from_omega` is the quaternion exponential q = exp(ω/2) = cos|ω|/2 + sin|ω|/2·ω̂ — at |ω|=π the result is a pure quaternion with q²=−1, directly analogous to e^(iπ)=−1. Full quaternion algebra: multiply, conjugate, SLERP (geodesic interpolation on S³), log, integrate (Lie group integrator that stays on S³), attitude error for control. `euler_to_quat`/`quat_to_euler` ZYX aerospace convention (PX4 compatible). `nd_rotation_compose(4,[(0,1),(2,3)],[π,π]) = −I₄` — the 4D Euler identity and spinor double-cover topology. `FusedState` gains `attitude_quat [w,x,y,z]` computed from PX4 Euler angles — singularity-free SO(3) representation replaces gimbal-lock-prone Euler angles in the state vector. 40 new mathematical tests.
+
+- **MahlanyaRPG** — Ship phase complete. Cross-platform performance system: 5-tier hardware auto-detection (UltraLowEnd iGPU → Ultra), complete per-tier rendering profiles. `UPerformanceAutoTuner` micro-adjusts in real time. `UProximityLODSubsystem` focuses render budget on player's view direction. Legal docs, Steam OSS wired (12 achievements), `USiSwatiLocalizationSubsystem` (70 bilingual strings), Python simulation harness (6 tests). 316 pipeline tests. Pre-launch.
+
+- **brt-inc** — Pinterest-inspired portfolio redesign shipped. Project filter matrix, business-value descriptions, 3-package pricing, sticky CTA dock. Live at [brt-inc.vercel.app](https://brt-inc.vercel.app).
 
 ---
 
@@ -104,12 +106,6 @@ Earth-science accuracy as a design constraint: 10m Copernicus DEM (Eswatini boun
 | `KnowledgeGraphPlugin` | Historical accuracy constraint graph — structurally prevents false NPC statements |
 | `ErosionRuntimePlugin` | GPU compute shader (ErosionCS.usf) on rain events; session-local displacement |
 
-**Phase 10 (Production Optimization):** `UHardwareAdaptiveScaler` (5-tier, complete rendering CVar profiles per tier), `UDynamicRuntimeThrottle` (hysteresis frame budget + rendering throttle), `FSimulationTrustMatrix` (thread-safe trust scoring + extrapolation), `UYearChangeOrchestrator` (256-slot pre-allocated event pool, BFS spread across ticks), `FSimulationTracer` (Unreal Insights channel), `HistoricalValidator` (parallel ThreadPoolExecutor), `check_regression.py` (15% gate on 7 metrics).
-
-**Cross-platform performance system:** `UProximityLODSubsystem` — view-based 3-tier LOD (Focus/Visible/Background) using dot-product view classification, `ForcedLodModel` overrides, shadow suppression for off-view objects, `VisibilityBasedAnimTickOption` per tier for NPC skeletons. `UPerformanceAutoTuner` — rolling 120-frame FPS monitor, micro-adjusts `r.ScreenPercentage` + `sg.ShadowQuality` in real-time within tier-locked bounds (3 bad evals → reduce, 15 good evals → recover). Hardware tiers: `UltraLowEnd` (iGPU, cone 15°) → `LowEnd` (cone 20°, 30fps) → `MidRange` (Nanite on, 60fps) → `HighEnd` (Lumen on) → `Ultra` (144fps, all max). 19 performance CVars.
-
-**Ship phase:** Legal docs (EULA, Privacy Policy, Third-Party Notices). Steam OSS (SteamDevAppId placeholder, 12 achievements, bUseSteamNetworking). In-game `UGraphicsSettingsWidget` (reads live CVars, tier override, `SaveSettings()` to INI). `UFirstRunPerformanceAdvisor` (detects first launch via INI absence, tier description, `ApplyRecommended()`). `USiSwatiLocalizationSubsystem` (siSwati ↔ English localization, 70 bilingual strings, 7 categories). Python simulation harness (`scripts/simulation_harness.py`) mirrors UE5 subsystems — runs without GPU or UE5 install, 6 pytest tests. Steam Cloud VDF (3 save slots + chronicle), iOS `PrivacyInfo.xcprivacy` (4 API reasons), `UMahlanyaSaveSubsystem` (async save/load, world-state snapshot), 12 cross-platform achievements (Steam + Game Center).
-
 ```
 UE5 C++ · Zig 0.13+ · Python 3.11 · GDAL · Unreal Insights · Steam SDK 1.58 · ASTC
 ```
@@ -120,9 +116,9 @@ UE5 C++ · Zig 0.13+ · Python 3.11 · GDAL · Unreal Insights · Steam SDK 1.58
 
 **Military command & control platform** · 27,900 lines · PHP 8 + MySQL · production-ready
 
-Real-time drone fleet management and threat detection system. RBAC with 4 roles, TOTP 2FA, blockchain-chained tamper-evident audit log, Node.js WebSocket telemetry shim, NATS JetStream integration. Si[...]
+Real-time drone fleet management and threat detection system. RBAC with 4 roles, TOTP 2FA, blockchain-chained tamper-evident audit log, Node.js WebSocket telemetry shim, NATS JetStream integration.
 
-**Security audit:** 3 Critical + 6 High findings → [all 9 resolved](https://github.com/CBahtaria/sentinel/blob/main/SECURITY.md) · 22 files patched · 317 lines fixed · 0 regressions · audit-gate[...]
+**Security audit:** 3 Critical + 6 High findings → all 9 resolved · 22 files patched · 317 lines fixed · 0 regressions · audit-gated CI.
 
 ```
 PHP 8.3 · MySQL 8 · Node.js · NATS JetStream · WebSocket · PHPUnit · GitHub Actions
@@ -132,20 +128,20 @@ PHP 8.3 · MySQL 8 · Node.js · NATS JetStream · WebSocket · PHPUnit · GitHu
 
 ### 🛸 [Agentic UAV Stack](https://github.com/CBahtaria/agentic-uav-stack) — private
 
-**Multi-scale autonomous drone platform** · Three-tier architecture · Formal verification
+**Multi-scale autonomous drone platform** · Three-tier architecture · Formal verification · 942 tests
 
 | Layer | Component | Mathematics & Theory |
 |---|---|---|
-| **Reactive** (1 kHz) | PX4 + NuttX RTOS | Attitude quaternions, motor mixing matrices, real-time servo control |
-| **Executive** (10–50 Hz) | Safety governor + ROS 2 Jazzy + DDS | Formal shield: 5 geometric invariants, deadman's switch with NTP-attack detection, fail-safe semantics |
-| **Advisory** | AI router → Claude / Ollama | Probabilistic decision boundary, human-authorization gating |
+| **Reactive** (1 kHz) | PX4 + NuttX RTOS | Attitude quaternions (SO(3) Lie group), motor mixing matrices, real-time servo control |
+| **Executive** (10–50 Hz) | Safety governor + ROS 2 Jazzy + DDS | Formal shield: 5 geometric + 5 fog invariants; NaN → NO_GO; deadman's switch with NTP-attack detection |
+| **Advisory** | AI router → Claude / Ollama | Probabilistic decision boundary, human-authorization gating, fog action types |
 
-Currently SRL-3, HIL ramping. 783 tests passing. Kardashev 0.68.
+Currently SRL-3, HIL ramping. Kardashev 0.68.
 
-**Subsystems shipped:** Brain daemon with key isolation; Simplex formal shield (5 geometric invariants); deadman's switch with NTP-attack detection; Octogent multi-agent vulnerability scanner; N-versi[...]
+**Subsystems shipped:** Brain daemon with key isolation · Simplex formal shield (10 invariants) · Deadman's switch with NTP-attack detection · Octogent multi-agent vulnerability scanner · N-version security divtab · Runtime PEP-578 audit hook · Merkle tamper-evident audit trail · Fog water harvesting (4 mission profiles: survey, hover-collect, net-deploy, swarm) · SHT31/visibility/load-cell sensor drivers · Kunkel LWC + Magnus dew-point fog physics · **SO(3) Lie group geometry** (`shared/geometry/lie_so3.py`): Rodrigues formula, quaternion exponential, SLERP, N-dimensional rotation, singularity-free `attitude_quat` in FusedState · Swarm Raft consensus · RF channel mesh · UAVZ/UAVZMA lossless codecs
 
 ```
-Python 3.12 · NATS JetStream · MAVLink · ROS 2 Jazzy · DDS · pytest · GitHub Actions
+Python 3.12 · NATS JetStream · MAVLink · ROS 2 Jazzy · DDS · numpy · pytest · GitHub Actions
 ```
 
 ---
@@ -166,10 +162,22 @@ Python · FastAPI · Plotly Dash · Prophet · statsmodels · pandas · SQLAlche
 
 **Production-grade booking platform** · React 19 + TypeScript + Supabase + Vercel
 
-Live business app deployed for Studio P, Manzini. OS-aware UI via `userAgent`/`platform`/`maxTouchPoints` (applied synchronously, zero layout flash). Two-round orchestrated parallel booking validation[...]
+Live business app deployed for Studio P, Manzini. OS-aware UI via `userAgent`/`platform`/`maxTouchPoints` (applied synchronously, zero layout flash). Two-round orchestrated parallel booking validation flow with conflict detection and real-time slot locking.
 
 ```
 React 19 · TypeScript · Supabase · PostgreSQL RLS · PBKDF2 · Web Crypto API · Vercel
+```
+
+---
+
+### 🌾 [Maize Leaf Classifier](https://github.com/CBahtaria/maize-leaf-classifier) — public
+
+**Binary disease classifier for SSA smallholder farmers** · MobileNetV2 CNN · FastAPI + React PWA
+
+MobileNetV2 fine-tuned on PlantVillage (healthy vs grey-leaf-spot). FastAPI inference endpoint, React PWA with offline support, blue-green Nginx deployment, Docker Compose stack. Targets low-spec smartphones common in SADC agricultural contexts.
+
+```
+Python · TensorFlow · FastAPI · React · Docker · Nginx · GitHub Actions
 ```
 
 ---
@@ -178,44 +186,22 @@ React 19 · TypeScript · Supabase · PostgreSQL RLS · PBKDF2 · Web Crypto API
 
 **Levin's Universal Search over BrainFuck** · Algorithmic Information Theory · Speed-optimised
 
-Deterministic universal search algorithm over programs in an esoteric language. Achieves O(2^|p*| · t*) total work asymptotically — matching Levin's theoretical bound. **Mathematical foundations:** Kolmogorov complexity, prefix-free enumeration, halting problem bounds.
+Deterministic universal search achieving O(2^|p*| · t*) total work asymptotically — matching Levin's theoretical bound. Three optimizations: incremental execution (O(1) state restore), dead-set pruning (halted programs permanently removed), bracket precomputation (O(1) bracket target resolution).
 
-Three optimizations:
-
-| # | Modification | Effect | Theory |
-|---|---|---|---|
-| 1 | **Incremental execution** | Programs resume from checkpoint — zero re-computation | Memoization with O(1) state restore |
-| 2 | **Dead-set pruning** | Halted/errored programs removed permanently | Irreversible halt detection → search space reduction |
-| 3 | **Bracket precomputation** | O(1) bracket target resolution | Prefix trie on execution stack |
-
-Phase 6 ≈ 60 MB RAM, phase 8 ≈ 3.8 GB. CLI: `find <target>`, `run <program>`, `kolmogorov <target>`.
-
----
-
-### 🗜️ [Production Compression Framework](https://github.com/CBahtaria/production-compression-framework) — private
-
-Production-grade compression pipeline: adaptive streaming, multi-codec orchestration, edge-deployed. Shell + infrastructure tooling for high-throughput data reduction at the edge of the UAV sensor pip[...]
-
----
-
-### 🧠 [Second Brain](https://github.com/CBahtaria/second-brain) — private
-
-Obsidian-style knowledge vault. 29 cross-linked wiki articles + 28 studio agents compounding knowledge via per-session `## Evolution Log` entries. Karpathy-style synthesis pipeline (`<scratchpad>` bef[...]
+```
+Python · Algorithmic Information Theory · Kolmogorov complexity · prefix-free enumeration
+```
 
 ---
 
 ### 🌐 [BRT Inc.](https://github.com/CBahtaria/brt-inc) — public
 
-**Operator website + internal toolkit** · [brt-inc.vercel.app](https://brt-inc.vercel.app) · Pure HTML/CSS/JS + Supabase + Vercel · No build step
+**Operator website + internal toolkit** · [brt-inc.vercel.app](https://brt-inc.vercel.app) · Pure HTML/CSS/JS + Supabase + Vercel
 
-Auth-gated internal tools: CRM (kanban + table view), proposal generator, service agreement templates, client onboarding intake, Stripe webhook handler, Resend email delivery.
-
-**2026-06-15 overhaul:** 5-layer CSS `@layer` cascade (reset → tokens → base → components → utilities), 3-palette `[data-theme]` system with `localStorage` persistence and OS-preference fallback (Carbon dark `#0B0B0C` / Aerospace White `#F8F9FA` / Midnight Steel `#040608`), Space Grotesk + Geist Mono replacing Inter. 4-column bento portfolio grid with CSS `@property --border-angle` animated gradient borders. All inline JS/CSS extracted to `src/js/main.js` + `src/css/main.css` — `'unsafe-inline'` removed from `script-src`. Lucide icons (drone/satellite/radar/shield-check), PWA manifest, `robots.txt`, `sitemap.xml`, `404.html`. Braintrust eval pipeline (12 `ExactMatch` scored checks). 6 `CREATE INDEX CONCURRENTLY` on `user_id`/`created_at`/`invoice_number`.
-
-**2026-07-01 redesign:** Pinterest-inspired UI. Project filter matrix ([All] [Web Apps] [Security] [AI/ML] [Game Dev] [Systems]) — JS filter with smooth hide/show. Sentinel card promoted to 2-column featured card (desktop). Business-value project descriptions (all 7 rewritten — what it does for users, not tech spec dumps). 3-package pricing (Micro-Projects R1,850/R850hr · Full-Stack Build from R5,500 · Retainer R950/mo) with feature checklists. Sticky CTA dock at page bottom (scrollY > 450, dismiss button). Geo meta tags (SZ-MA Manzini). All pure HTML/CSS/JS — no build step.
+Auth-gated internal tools: CRM (kanban + table view), proposal generator, service agreement templates, client onboarding intake, Stripe webhook handler, Resend email delivery. Pinterest-inspired UI with project filter matrix, 3-package pricing, sticky CTA dock.
 
 ```
-HTML · CSS (@layer · @property · scroll-driven) · JavaScript · Supabase · Vercel · Node.js · Resend · Stripe
+HTML · CSS (@layer · @property · scroll-driven) · JavaScript · Supabase · Vercel · Stripe · Resend
 ```
 
 ---
@@ -224,10 +210,10 @@ HTML · CSS (@layer · @property · scroll-driven) · JavaScript · Supabase · 
 
 1. **No AI in the flight command path.** AI is advisory; formal shield + governor have final say. Engagement recs require human authorization.
 2. **DAL-A invariants are CI-gated.** `scripts/check_dal_a_rules.py` rejects `eval`, `exec`, `getattr`, `__import__` in safety-critical files.
-3. **Fail-safe means `NO_GO`.** Governor returns NO_GO on exception; decision variables pre-bound before try block.
+3. **Fail-safe means `NO_GO`.** Governor returns NO_GO on exception; NaN sensor readings → NO_GO via `math.isfinite()` guards.
 4. **API keys never leave the daemon process.** `brain/daemon.py` loads `.env`, pops secrets, then `subprocess.Popen(..., env={})`. Audit via `make audit-keys`.
 5. **Defense in depth at every layer.** SROS2 enclaves enforce topic-level pub/sub authorization at DDS layer.
-6. **Multi-persona security review.** 9 concurrent personas (red-team, blue-team, supply-chain, compliance, insider-threat, architecture-integrity, trojan-horse, goldilocks, cat-burglar) run weekly wi[...]
+6. **Multi-persona security review.** 9 concurrent personas (red-team, blue-team, supply-chain, compliance, insider-threat, architecture-integrity, trojan-horse, goldilocks, cat-burglar) run weekly with independent findings consolidated by an LLM synthesis pass.
 
 ---
 
@@ -240,25 +226,25 @@ HTML · CSS (@layer · @property · scroll-driven) · JavaScript · Supabase · 
 | **Data** | NATS JetStream · PostgreSQL · MySQL 8 · Supabase · SQLite (WAL + FTS5) · DuckDB · Qdrant |
 | **DevOps** | Docker Compose · Kubernetes + MicroShift · Helm · Nginx · GitHub Actions · Prometheus · Grafana · Ansible |
 | **ML / Forecasting** | ARIMA/SARIMA · Prophet · Monte Carlo · pandas · scikit-learn · GGUF quantization |
-| **Mathematics** | Time-series decomposition · Stochastic modeling · Complexity theory (Kolmogorov, algorithmic information) · Formal verification · Quaternion algebra (attitude control) |
+| **Mathematics** | SO(3)/SO(n) Lie groups · Rodrigues formula · quaternion exponential · SLERP · time-series decomposition · stochastic modeling · Kunkel/Magnus fog physics · Kolmogorov complexity · formal verification |
 | **Security** | OWASP Top 10 · RBAC · JWT · PBKDF2 · 2FA/TOTP · SROS2 DDS Security · TPM 2.0 · cosign · NTS-NTP · MAVLink 2 signing |
 | **Game / UE5** | Unreal Engine 5 · GAS · World Partition · Nanite · Lumen · MetaSounds · Chaos Physics · PCG Framework · Unreal Insights |
-| **Testing** | PHPUnit · pytest · stress testing · integration tests · GitHub Actions CI |
+| **Testing** | PHPUnit · pytest (942 tests on UAV stack) · stress testing · integration tests · GitHub Actions CI |
 | **Runtime** | ROS 2 Jazzy · NuttX RTOS · Linux (Fedora dev, RHEL9, Jetson Orin) · systemd |
 | **AI** | Claude Sonnet/Opus ($5/day cap) · Ollama mistral:7b-q4 · hybrid router + circuit breaker · SFT · RLVR · distillation |
-| **UI** | React/JSX · Babel on CDN · BARTARIA TAC-OS v5 design tokens · Doto + Iceland + DM Sans + JetBrains Mono · r3f + shadergradient |
+| **UI** | React/JSX · BARTARIA TAC-OS v5 design tokens · Doto + Iceland + DM Sans + JetBrains Mono · r3f + shadergradient |
 
 ---
 
 ## Audience
 
-I write so the next operator can pick this up cold. National Libraries, government officials, defence forces are the design audience for the compliance posture. Repos and docs reflect that — read `a[...]
+I write so the next operator can pick this up cold. National Libraries, government officials, defence forces are the design audience for the compliance posture. Repos and docs reflect that — read `agentic-uav-stack/CLAUDE.md` or `sentinel/SECURITY.md` for the standard.
 
 ---
 
 ## What I am not
 
-Not a content marketer. Not a vibe-coder. Not a wrapper around someone else's API. Work targets compliance gates before features, not after; tamper-evident audit before "observability"; deterministic [...]
+Not a content marketer. Not a vibe-coder. Not a wrapper around someone else's API. Work targets compliance gates before features, not after; tamper-evident audit before "observability"; deterministic behaviour at system boundaries before probabilistic behaviour in the interior.
 
 ---
 

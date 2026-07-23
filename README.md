@@ -71,17 +71,14 @@ flowchart TB
 
 ---
 
-## Now (week of 2026-07-18)
+## Now (week of 2026-07-21)
 
-- **agentic-uav-stack — SRL-3 HIL gate** — Hardware-in-loop test suite passing cleanly. Fixed `_ROS_AVAILABLE` guard in `governor.py` (matches stack-wide pattern). Rewrote three HIL test classes against the actual APIs: `FormalShield.evaluate(setpoint, DroneState)` replaces phantom `check_trajectory()`; `DeadMansSwitch(drone)` replaces phantom `timeout_s` constructor; `HardwareHealth`/`EnvironmentRisk` decision checks replace phantom `_make_decision()`. Fixed `@pytest_asyncio.fixture` on `mavsdk_drone` for strict-mode. Result: 14 HIL tests passing, 15 correctly skipping (MAVSDK telemetry needs live SITL container), 0 failing. Compliance gate: PASS 30 / FAIL 0. All DAL-A invariants clean. SRL-3 gate cleared; next: `docker compose --profile sitl up` for the live MAVSDK telemetry tier.
-
-- **agentic-uav-stack — Fog water harvesting** — Added complete fog condensation mission capability across the full stack. Four mission profiles: (1) boustrophedon grid survey at altitude bands → GeoJSON density map, (2) hover-and-collect with hydrophilic mesh payload, (3) deploy/retrieve fog nets between anchor points, (4) swarm formation array with Raft-elected leader. New hardware drivers: SHT31 (I2C humidity+temp, CRC-8), visibility sensor (serial), HX711 load cell + ADS1115 tension sensor. Kunkel (1984) LWC formula (visibility→g/m³), Magnus dew-point, FogCategory classification. Five new DAL-A invariants in shield.py: wind gate (>8 m/s blocks net/swarm), payload mass gate (>0.5 kg), formation gap gate (<3 m), net tension gate (>50 N), fog battery reserve (+10% RTH threshold in wet conditions) — all with `math.isfinite()` guards so NaN sensor readings → NO_GO. UAV_FOG NATS stream, FOG_HARVEST_ANALYSIS brain task, four mission YAML configs with Eswatini Malolotja coordinates. 116 new tests covering all six fog modules. 942 tests total.
-
-- **agentic-uav-stack — SO(3) Lie group geometry** — `shared/geometry/lie_so3.py`: multi-dimensional generalisation of e^(iπ)+1=0. `so3_hat/vee` map between ℝ³ and the so(3) Lie algebra (antisymmetric matrices). `so3_exp` implements Rodrigues' formula — the exact 3D Euler formula; at θ=π gives the element that squares to −I. `quat_from_omega` is the quaternion exponential q = exp(ω/2) = cos|ω|/2 + sin|ω|/2·ω̂ — at |ω|=π the result is a pure quaternion with q²=−1, directly analogous to e^(iπ)=−1. Full quaternion algebra: multiply, conjugate, SLERP (geodesic interpolation on S³), log, integrate (Lie group integrator that stays on S³), attitude error for control. `euler_to_quat`/`quat_to_euler` ZYX aerospace convention (PX4 compatible). `nd_rotation_compose(4,[(0,1),(2,3)],[π,π]) = −I₄` — the 4D Euler identity and spinor double-cover topology. `FusedState` gains `attitude_quat [w,x,y,z]` computed from PX4 Euler angles — singularity-free SO(3) representation replaces gimbal-lock-prone Euler angles in the state vector. 40 new mathematical tests.
-
-- **MahlanyaRPG** — Ship phase complete. Cross-platform performance system: 5-tier hardware auto-detection (UltraLowEnd iGPU → Ultra), complete per-tier rendering profiles. `UPerformanceAutoTuner` micro-adjusts in real time. `UProximityLODSubsystem` focuses render budget on player's view direction. Legal docs, Steam OSS wired (12 achievements), `USiSwatiLocalizationSubsystem` (70 bilingual strings), Python simulation harness (6 tests). 316 pipeline tests. Pre-launch.
-
-- **brt-inc** — Pinterest-inspired portfolio redesign shipped. Project filter matrix, business-value descriptions, 3-package pricing, sticky CTA dock. Live at [brt-inc.vercel.app](https://brt-inc.vercel.app).
+- **wheels-deals-eswatini** — Full-stack car dealership platform launched. Procedural ASCII highway animation (`AsciiVideoBackground`): 14-char palette, dual Swazi mountain ridges, Manzini city glow, oncoming headlights + tail lights, wet road shimmer, rain overlay; 30 FPS desktop / 20 FPS mobile with adaptive `fontSize`/`FRAME_MS`/resolution, portrait-adaptive horizon, `orientationchange` handler, OffscreenCanvas video-frame sampling path. Thandi AI chat assistant (Haiku 4.5, live Supabase inventory context, finance estimation). Admin vehicle posting (password-gated, `timingSafeEqual` auth, Supabase insert). Media pipeline: magic-byte validation, Supabase Storage, sharp WebP (150/400/800px), EXIF FIFO sort, `media_jobs` queue. Anonymous analytics + scored `PersonalizedFeed`. 4-step UX survey + adaptive engine writing `site_config`. Deployed at [wheels-deals-eswatini.vercel.app](https://wheels-deals-eswatini.vercel.app).
+- **brt-inc** (Next.js rebuild) — `EcosystemSection`: 6 cluster cards (UAV/Intelligence/Platform/Gaming/ML/Institutional), IntersectionObserver staggered fade-in, metric pills (13 systems · 8 NATS streams · 1,466+ tests · SRL-6). `About` 2-column: CountUp stats (2021 / 13 / 6 / 1,466+), expertise chips. Services: 7 SVG icons + price hints. Pricing: "Most popular" badge + timelines + `motion.a` CTAs. Portfolio: status badges across all 13 projects. Live at [brtinc.dev](https://brtinc.dev).
+- **agentic-uav-stack — SRL-3 HIL gate** — 14 HIL tests passing, 15 correctly skipping (live SITL container). Compliance gate: PASS 30 / FAIL 0. All DAL-A invariants clean. SRL-3 cleared.
+- **agentic-uav-stack — Fog water harvesting** — Four mission profiles: boustrophedon survey, hover-collect, net-deploy, swarm (Raft-elected leader). SHT31/visibility/load-cell drivers. Kunkel LWC + Magnus dew-point. Five new DAL-A invariants (wind/mass/gap/tension/battery gates), all `math.isfinite()` guarded. 116 new tests. 942 total.
+- **agentic-uav-stack — SO(3) Lie group geometry** — `lie_so3.py`: Rodrigues formula, quaternion exponential (`quat_from_omega`), SLERP, N-dimensional rotation (`nd_rotation_compose`), singularity-free `attitude_quat` replaces Euler angles in `FusedState`. 40 mathematical tests.
+- **MahlanyaRPG** — Ship phase complete. 5-tier hardware auto-detection, `UPerformanceAutoTuner`, `UProximityLODSubsystem`, Steam OSS (12 achievements), `USiSwatiLocalizationSubsystem` (70 bilingual strings), Python simulation harness (6 tests). 316 pipeline tests. Pre-launch.
 
 ---
 
@@ -196,14 +193,28 @@ Python · Algorithmic Information Theory · Kolmogorov complexity · prefix-free
 
 ---
 
-### 🌐 [BRT Inc.](https://github.com/CBahtaria/brt-inc) — public
+### 🚗 [Wheels & Deals Eswatini](https://github.com/CBahtaria/wheels-deals-eswatini) — public
 
-**Operator website + internal toolkit** · [brt-inc.vercel.app](https://brt-inc.vercel.app) · Pure HTML/CSS/JS + Supabase + Vercel
+**Used car dealership platform** · Next.js 16 + TypeScript + Supabase + Vercel · [wheels-deals-eswatini.vercel.app](https://wheels-deals-eswatini.vercel.app)
 
-Auth-gated internal tools: CRM (kanban + table view), proposal generator, service agreement templates, client onboarding intake, Stripe webhook handler, Resend email delivery. Pinterest-inspired UI with project filter matrix, 3-package pricing, sticky CTA dock.
+Procedural ASCII highway animation: 14-char luminance palette, dual Swazi mountain ridges (composite sine waves), Manzini city glow on right horizon, 3 oncoming headlight cars (delta-time position update), tail lights, wet road shimmer (per-cell Math.sin), roadside billboard, rain system (80 drops, random toggle). Mobile-adaptive: 20 FPS / `fontSize 14px` / 960px cap on mobile vs 30 FPS / 10px / 1920px on desktop; portrait-adaptive horizon; `orientationchange` listener; OffscreenCanvas video-frame sampling path with try/catch for older iOS. Thandi AI chat assistant (Haiku 4.5, live Supabase inventory context, finance calculation). Admin vehicle posting (password gate with `timingSafeEqual`, full form → Supabase insert). Media pipeline: magic-byte header validation, Supabase Storage, sharp WebP (150/400/800px), EXIF DateTimeOriginal FIFO sort, `media_jobs` queue. Anonymous analytics: `crypto.randomUUID` session IDs, `user_events` table, scored `PersonalizedFeed` (+3 body_type, +2 fuel_type, +4 price_range, +3 make). 4-step UX survey (framer-motion slide-up) + adaptive engine writing `site_config` (featured_body_types, layout_mode, cta_prominence).
 
 ```
-HTML · CSS (@layer · @property · scroll-driven) · JavaScript · Supabase · Vercel · Stripe · Resend
+Next.js 16 · TypeScript · Supabase · sharp · framer-motion · Tailwind CSS · Vercel · Anthropic
+```
+
+---
+
+### 🌐 [BRT Inc.](https://github.com/CBahtaria/brt-inc) — public
+
+**Operator website + internal toolkit** · [brtinc.dev](https://brtinc.dev) · Next.js 16 App Router + Supabase + Vercel
+
+Auth-gated internal tools: CRM (kanban + table view), proposal generator, service agreement templates, client onboarding intake, Stripe webhook handler, Resend email delivery.
+
+**2026-07-21 Next.js rebuild:** `EcosystemSection` — 6 cluster cards (UAV · Intelligence · Platform · Gaming · ML/Edge · Institutional), IntersectionObserver staggered reveal, colored top accent bars, status dots (LIVE · Building · Phase 11), metric pills (13 systems · 8 NATS streams · 1,466+ tests · SRL-6). `About` 2-column: CountUp stats (2021 / 13 / 6 / 1,466+), expertise chips (DAL-A · SRL-6 · TOTP 2FA · PostGIS · UE5 Nanite · AES-GCM-256). Services: 7 cards with inline SVG icons + price hints + category tags. Pricing: "Most popular" amber badge + timelines + deposit note + `motion.a` CTAs. Portfolio: status badges across all 13 projects.
+
+```
+Next.js 16 · TypeScript · Supabase · framer-motion · Tailwind CSS · Vercel · Resend · Stripe
 ```
 
 ---

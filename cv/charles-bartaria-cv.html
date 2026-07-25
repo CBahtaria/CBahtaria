@@ -3,23 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Charles Bartaria — CV</title>
+<title>Charles Bartaria — CV · BRT Inc.</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=DM+Sans:wght@300;400;500;600;700&display=swap');
 
   :root {
-    --bg:        #06090f;
-    --bg2:       #0d1320;
-    --bg3:       #111827;
-    --border:    #1e2d42;
-    --purple:    #8b5cf6;
-    --cyan:      #06b6d4;
-    --pink:      #ff006e;
-    --amber:     #f59e0b;
-    --green:     #10b981;
-    --text:      #e2e8f0;
-    --muted:     #64748b;
-    --dim:       #94a3b8;
+    --bg:      #06090f;
+    --bg2:     #0d1320;
+    --bg3:     #111827;
+    --border:  #1e2d42;
+    --border2: #243347;
+    --purple:  #8b5cf6;
+    --cyan:    #06b6d4;
+    --pink:    #ff006e;
+    --amber:   #f59e0b;
+    --green:   #10b981;
+    --blue:    #3b82f6;
+    --text:    #e2e8f0;
+    --muted:   #64748b;
+    --dim:     #94a3b8;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -28,20 +30,19 @@
     background: var(--bg);
     color: var(--text);
     font-family: 'DM Sans', system-ui, sans-serif;
-    font-size: 13.5px;
+    font-size: 13px;
     line-height: 1.6;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
 
-  /* ── Grid overlay ── */
   body::before {
     content: '';
     position: fixed;
     inset: 0;
     background-image:
-      linear-gradient(rgba(6,182,212,0.025) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(6,182,212,0.025) 1px, transparent 1px);
+      linear-gradient(rgba(6,182,212,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(6,182,212,0.02) 1px, transparent 1px);
     background-size: 40px 40px;
     pointer-events: none;
     z-index: 0;
@@ -50,9 +51,9 @@
   .page {
     position: relative;
     z-index: 1;
-    max-width: 900px;
+    max-width: 940px;
     margin: 0 auto;
-    padding: 52px 56px;
+    padding: 48px 56px;
   }
 
   /* ══ HEADER ══ */
@@ -61,8 +62,8 @@
     grid-template-columns: 1fr auto;
     gap: 32px;
     align-items: start;
-    margin-bottom: 44px;
-    padding-bottom: 32px;
+    margin-bottom: 40px;
+    padding-bottom: 28px;
     border-bottom: 1px solid var(--border);
     position: relative;
   }
@@ -72,56 +73,58 @@
     position: absolute;
     bottom: -1px;
     left: 0;
-    width: 120px;
+    width: 160px;
     height: 2px;
-    background: linear-gradient(90deg, var(--cyan), var(--purple));
+    background: linear-gradient(90deg, var(--cyan), var(--purple), transparent);
   }
 
   .name-block h1 {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 32px;
+    font-size: 34px;
     font-weight: 700;
     letter-spacing: -0.5px;
     color: #fff;
     line-height: 1.1;
   }
 
-  .name-block h1 span.bracket {
-    color: var(--cyan);
-    font-weight: 300;
-  }
+  .name-block h1 .bracket { color: var(--cyan); font-weight: 300; }
 
   .tagline {
     margin-top: 8px;
-    font-size: 13px;
+    font-size: 12.5px;
     color: var(--dim);
     font-family: 'JetBrains Mono', monospace;
     letter-spacing: 0.3px;
   }
 
-  .tagline .tier {
-    display: inline-block;
-    margin-right: 12px;
-  }
-  .tagline .tier.advisory { color: var(--purple); }
+  .tagline .tier { display: inline-block; margin-right: 14px; }
+  .tagline .tier.advisory  { color: var(--purple); }
   .tagline .tier.executive { color: var(--cyan); }
-  .tagline .tier.reactive { color: var(--pink); }
+  .tagline .tier.reactive  { color: var(--pink); }
+  .tagline .tier.game      { color: var(--amber); }
+
+  .sub-tagline {
+    margin-top: 10px;
+    font-size: 13px;
+    color: var(--dim);
+    line-height: 1.65;
+    max-width: 520px;
+  }
 
   .contact-block {
     text-align: right;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 11.5px;
+    font-size: 11px;
     color: var(--dim);
-    line-height: 1.9;
+    line-height: 2;
   }
 
   .contact-block a { color: var(--cyan); text-decoration: none; }
   .contact-block .loc { color: var(--muted); }
+  .contact-block .org { color: var(--amber); font-weight: 600; }
 
   /* ══ SECTION ══ */
-  section {
-    margin-bottom: 36px;
-  }
+  section { margin-bottom: 36px; }
 
   .section-label {
     font-family: 'JetBrains Mono', monospace;
@@ -145,21 +148,50 @@
 
   /* ══ SUMMARY ══ */
   .summary-text {
-    font-size: 14px;
+    font-size: 13.5px;
     color: var(--dim);
-    line-height: 1.75;
-    max-width: 780px;
+    line-height: 1.8;
+    max-width: 820px;
   }
 
-  .summary-text strong {
-    color: var(--text);
-    font-weight: 600;
+  .summary-text strong { color: var(--text); font-weight: 600; }
+
+  /* ══ CLIENTS BAR ══ */
+  .clients-bar {
+    margin-top: 16px;
+    padding: 12px 16px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--amber);
+    border-radius: 0 4px 4px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+    align-items: center;
   }
+
+  .clients-bar .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--amber);
+    flex-shrink: 0;
+  }
+
+  .clients-bar .client {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    color: var(--dim);
+  }
+
+  .clients-bar .client strong { color: var(--text); }
 
   /* ══ PROJECTS ══ */
   .project {
     display: grid;
-    grid-template-columns: 220px 1fr;
+    grid-template-columns: 210px 1fr;
     gap: 0 28px;
     margin-bottom: 28px;
     padding-bottom: 28px;
@@ -172,9 +204,7 @@
     padding-bottom: 0;
   }
 
-  .project-meta {
-    padding-top: 3px;
-  }
+  .project-meta { padding-top: 3px; }
 
   .project-name {
     font-family: 'JetBrains Mono', monospace;
@@ -182,6 +212,7 @@
     font-weight: 700;
     color: #fff;
     margin-bottom: 4px;
+    line-height: 1.3;
   }
 
   .project-name .vis {
@@ -197,29 +228,14 @@
   .vis.private { background: rgba(139,92,246,0.15); color: var(--purple); border: 1px solid rgba(139,92,246,0.3); }
   .vis.public  { background: rgba(6,182,212,0.1);  color: var(--cyan);   border: 1px solid rgba(6,182,212,0.25); }
 
-  .project-type {
-    font-size: 11px;
-    color: var(--muted);
-    font-family: 'JetBrains Mono', monospace;
-    margin-bottom: 8px;
-  }
+  .project-type  { font-size: 11px; color: var(--muted); font-family: 'JetBrains Mono', monospace; margin-bottom: 4px; }
+  .project-date  { font-size: 11px; color: var(--muted); font-family: 'JetBrains Mono', monospace; }
 
-  .project-date {
-    font-size: 11px;
-    color: var(--muted);
-    font-family: 'JetBrains Mono', monospace;
-  }
-
-  .project-stack {
-    margin-top: 10px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px;
-  }
+  .project-stack { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 4px; }
 
   .tag {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
+    font-size: 9.5px;
     padding: 2px 7px;
     border-radius: 3px;
     border: 1px solid var(--border);
@@ -232,22 +248,17 @@
   .tag.cpp { border-color: rgba(255,0,110,0.4);  color: rgba(255,0,110,0.9);  background: rgba(255,0,110,0.07); }
   .tag.sh  { border-color: rgba(245,158,11,0.4); color: rgba(245,158,11,0.9); background: rgba(245,158,11,0.07); }
   .tag.php { border-color: rgba(16,185,129,0.4); color: rgba(16,185,129,0.9); background: rgba(16,185,129,0.07); }
-
-  .project-body { }
+  .tag.zig { border-color: rgba(99,102,241,0.4); color: rgba(99,102,241,0.9); background: rgba(99,102,241,0.07); }
 
   .project-headline {
-    font-size: 13.5px;
+    font-size: 13px;
     color: var(--text);
     font-weight: 500;
     margin-bottom: 8px;
-    line-height: 1.5;
+    line-height: 1.55;
   }
 
-  .bullets {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
+  .bullets { list-style: none; margin: 0; padding: 0; }
 
   .bullets li {
     font-size: 12.5px;
@@ -266,88 +277,24 @@
     top: 4px;
   }
 
-  .bullets li strong {
-    color: var(--text);
-    font-weight: 600;
-  }
+  .bullets li strong { color: var(--text); font-weight: 600; }
+  .bullets li .num   { color: var(--amber); font-family: 'JetBrains Mono', monospace; font-size: 11px; }
 
-  .bullets li .num {
-    color: var(--amber);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11.5px;
-  }
+  /* ══ STAT CHIPS ══ */
+  .stat-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
 
-  /* Achievement pill */
-  .achievement {
-    display: inline-block;
-    background: rgba(16,185,129,0.1);
-    border: 1px solid rgba(16,185,129,0.25);
-    color: var(--green);
+  .stat {
     font-family: 'JetBrains Mono', monospace;
     font-size: 10px;
-    padding: 2px 8px;
+    padding: 3px 8px;
     border-radius: 3px;
-    margin-left: 6px;
-    vertical-align: middle;
-  }
-
-  /* ══ PRINCIPLES ══ */
-  .principles-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-  }
-
-  .principle {
-    background: var(--bg2);
+    background: var(--bg3);
     border: 1px solid var(--border);
-    border-left: 3px solid var(--purple);
-    padding: 12px 14px;
-    border-radius: 0 4px 4px 0;
-    font-size: 12px;
-    color: var(--dim);
-    line-height: 1.5;
-  }
-
-  .principle strong {
-    display: block;
-    color: var(--text);
-    font-size: 12px;
-    margin-bottom: 3px;
-    font-weight: 600;
-  }
-
-  /* ══ SKILLS ══ */
-  .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-  }
-
-  .skill-group { }
-
-  .skill-group-name {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    font-weight: 700;
-    color: var(--purple);
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    margin-bottom: 8px;
-  }
-
-  .skill-list {
-    font-size: 12px;
-    color: var(--dim);
-    line-height: 1.8;
-  }
-
-  .skill-list span {
-    display: inline-block;
     color: var(--dim);
   }
 
-  .skill-list span.hl { color: var(--text); }
+  .stat .val  { color: var(--amber); font-weight: 700; }
+  .stat .unit { color: var(--muted); }
 
   /* ══ TIER BADGE ══ */
   .tier-badge {
@@ -364,59 +311,118 @@
     margin-top: 8px;
   }
 
-  .tier-badge.advisory { background: rgba(139,92,246,0.12); color: var(--purple); border: 1px solid rgba(139,92,246,0.3); }
-  .tier-badge.executive { background: rgba(6,182,212,0.1);  color: var(--cyan);   border: 1px solid rgba(6,182,212,0.25); }
-  .tier-badge.reactive  { background: rgba(255,0,110,0.1);  color: var(--pink);   border: 1px solid rgba(255,0,110,0.25); }
-  .tier-badge.algo      { background: rgba(245,158,11,0.1); color: var(--amber);  border: 1px solid rgba(245,158,11,0.25); }
-  .tier-badge.infra     { background: rgba(16,185,129,0.1); color: var(--green);  border: 1px solid rgba(16,185,129,0.25); }
-  .tier-badge.web       { background: rgba(99,102,241,0.1); color: #818cf8;        border: 1px solid rgba(99,102,241,0.25); }
+  .tier-badge.advisory  { background: rgba(139,92,246,0.12); color: var(--purple); border: 1px solid rgba(139,92,246,0.3); }
+  .tier-badge.executive { background: rgba(6,182,212,0.1);   color: var(--cyan);   border: 1px solid rgba(6,182,212,0.25); }
+  .tier-badge.reactive  { background: rgba(255,0,110,0.1);   color: var(--pink);   border: 1px solid rgba(255,0,110,0.25); }
+  .tier-badge.algo      { background: rgba(245,158,11,0.1);  color: var(--amber);  border: 1px solid rgba(245,158,11,0.25); }
+  .tier-badge.infra     { background: rgba(16,185,129,0.1);  color: var(--green);  border: 1px solid rgba(16,185,129,0.25); }
+  .tier-badge.web       { background: rgba(99,102,241,0.1);  color: #818cf8;        border: 1px solid rgba(99,102,241,0.25); }
+  .tier-badge.game      { background: rgba(245,158,11,0.08); color: var(--amber);  border: 1px solid rgba(245,158,11,0.2); }
+  .tier-badge.security  { background: rgba(255,0,110,0.08);  color: var(--pink);   border: 1px solid rgba(255,0,110,0.2); }
 
-  .dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: currentColor;
-    display: inline-block;
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; display: inline-block; }
+
+  /* ══ PRINCIPLES ══ */
+  .principles-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
   }
 
-  /* ══ ALGORITHMS BLOCK ══ */
+  .principle {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--purple);
+    padding: 12px 14px;
+    border-radius: 0 4px 4px 0;
+    font-size: 11.5px;
+    color: var(--dim);
+    line-height: 1.5;
+  }
+
+  .principle strong {
+    display: block;
+    color: var(--text);
+    font-size: 11.5px;
+    margin-bottom: 3px;
+    font-weight: 600;
+  }
+
+  /* ══ SKILLS ══ */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+  }
+
+  .skill-group-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--purple);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .skill-list { font-size: 12px; color: var(--dim); line-height: 1.9; }
+  .skill-list span.hl { color: var(--text); }
+
+  /* ══ EDUCATION ══ */
+  .edu-row {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 0 28px;
+    margin-bottom: 18px;
+  }
+
+  .edu-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    padding-top: 2px;
+  }
+
+  .edu-inst { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+  .edu-degree { font-size: 12.5px; color: var(--dim); }
+
+  /* ══ ALGO BLOCK ══ */
   .algo-block {
     background: var(--bg2);
     border: 1px solid var(--border);
     border-top: 2px solid var(--amber);
-    padding: 16px 18px;
+    padding: 14px 16px;
     border-radius: 0 0 4px 4px;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 11.5px;
+    font-size: 11px;
     color: var(--dim);
     line-height: 1.7;
     margin-top: 10px;
   }
 
-  .algo-block .formula {
-    color: var(--amber);
-    font-weight: 500;
-  }
+  .algo-block .formula { color: var(--amber); font-weight: 500; }
 
   /* ══ FOOTER ══ */
   footer {
     margin-top: 44px;
-    padding-top: 20px;
+    padding-top: 18px;
     border-top: 1px solid var(--border);
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
 
-  .footer-left {
+  .footer-left, .footer-right {
     font-family: 'JetBrains Mono', monospace;
     font-size: 10px;
     color: var(--muted);
   }
 
-  .footer-right {
+  .footer-center {
     font-family: 'JetBrains Mono', monospace;
     font-size: 10px;
-    color: var(--muted);
+    color: var(--border2);
+    text-align: center;
   }
 
   /* ══ PRINT ══ */
@@ -425,422 +431,547 @@
     body::before { display: none; }
     .page { padding: 32px 40px; }
     @page { margin: 0; size: A4; }
+    .project { page-break-inside: avoid; }
+    section { page-break-inside: avoid; }
   }
-
-  /* ── stat chips ── */
-  .stat-row {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-top: 8px;
-  }
-
-  .stat {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10.5px;
-    padding: 3px 9px;
-    border-radius: 3px;
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    color: var(--dim);
-  }
-
-  .stat .val {
-    color: var(--amber);
-    font-weight: 700;
-  }
-
-  .stat .unit { color: var(--muted); }
 </style>
 </head>
 <body>
 <div class="page">
 
-  <!-- ══════════════════════════════ HEADER ══════════════════════════════ -->
-  <header>
-    <div class="name-block">
-      <h1><span class="bracket">&lt;</span>Charles Bartaria<span class="bracket">/&gt;</span></h1>
-      <div class="tagline">
-        <span class="tier advisory">● Advisory AI</span>
-        <span class="tier executive">● DAL-A Executive</span>
-        <span class="tier reactive">● 1 kHz Reactive</span>
+<!-- ══════════════════════════════ HEADER ══════════════════════════════ -->
+<header>
+  <div class="name-block">
+    <h1><span class="bracket">&lt;</span>Charles Bartaria<span class="bracket">/&gt;</span></h1>
+    <div class="tagline">
+      <span class="tier advisory">● Advisory AI</span>
+      <span class="tier executive">● DAL-A Executive</span>
+      <span class="tier reactive">● 1 kHz Reactive</span>
+      <span class="tier game">● UE5 Simulation</span>
+    </div>
+    <div class="sub-tagline">
+      Solo engineer and founder of BRT Inc. — building autonomous aerial systems,
+      military C2, production games, and privacy infrastructure for SADC institutions.
+      Applies aerospace safety discipline to every layer of the stack.
+      Current focus: SRL-3 drone certification and pre-launch MahlanyaRPG.
+    </div>
+  </div>
+  <div class="contact-block">
+    <div class="org">BRT Inc. · Founder &amp; Lead Engineer</div>
+    <div><a href="mailto:charleskris9@gmail.com">charleskris9@gmail.com</a></div>
+    <div><a href="https://github.com/CBahtaria">github.com/CBahtaria</a></div>
+    <div><a href="https://brt-inc.vercel.app">brt-inc.vercel.app</a></div>
+    <div><a href="https://linkedin.com/in/charles-bartaria">linkedin.com/in/charles-bartaria</a></div>
+    <div class="loc">Kwaluseni · Matsapha, Eswatini</div>
+    <div class="loc" style="font-size:10px; margin-top:6px;">Updated 2026-07-25</div>
+  </div>
+</header>
+
+<!-- ══════════════════════════════ PROFILE ══════════════════════════════ -->
+<section>
+  <div class="section-label">Profile</div>
+  <p class="summary-text">
+    Designed and shipped a <strong>three-tier autonomous drone platform</strong> from bare-metal PX4/NuttX
+    (1 kHz reactive) through a DAL-A safety governor (10–50 Hz executive) to a circuit-breaker-backed
+    AI advisory router — the LLM influences, the governor decides, the flight controller acts.
+    Delivered a <strong>military C2 system</strong> (UEDF Sentinel v5.0) for the Unified Eswatini Defence Force.
+    Implemented <strong>Levin-optimal universal search</strong> from first principles with three provable speed
+    modifications. Built a <strong>production RPG</strong> on Unreal Engine 5 grounded in real Copernicus 10m DEM
+    data, Swazi cultural geometry, and a 5000-pass geomorphological erosion simulator in Zig SIMD.
+    Shipped a <strong>full-stack privacy extension</strong> (Layered) with Proton-style E2E vault, OSINT engine,
+    and Ollama tier-0 local LLM. Works only where correctness is non-negotiable: formal invariants,
+    tamper-evident audit chains, supply-chain hygiene, and CI-gated DAL-A rules before any feature ships.
+  </p>
+  <div class="clients-bar">
+    <span class="label">Institutional Scope</span>
+    <span class="client"><strong>SADC National Libraries</strong></span>
+    <span class="client"><strong>Eswatini Government Officials</strong></span>
+    <span class="client"><strong>Unified Eswatini Defence Force</strong></span>
+    <span class="client"><strong>Royal Household</strong></span>
+    <span class="client"><strong>UNESWA</strong></span>
+    <span class="client">· Compliance-posture audience across all products</span>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ PROJECTS ══════════════════════════════ -->
+<section>
+  <div class="section-label">Engineering Work</div>
+
+  <!-- agentic-uav-stack -->
+  <div class="project">
+    <div class="project-meta">
+      <div class="project-name">agentic-uav-stack <span class="vis private">PRIVATE</span></div>
+      <div class="project-type">Autonomous Aerial Platform</div>
+      <div class="project-date">2025 – present</div>
+      <div>
+        <span class="tier-badge reactive"><span class="dot"></span>Reactive</span>
+        <span class="tier-badge executive"><span class="dot"></span>Executive</span>
+        <span class="tier-badge advisory"><span class="dot"></span>Advisory</span>
       </div>
-      <div style="margin-top:12px; font-size:13px; color:var(--dim); line-height:1.6; max-width:500px;">
-        Solo engineer building autonomous aerial systems from silicon to cloud.
-        Applies aerospace safety discipline — DAL-A, formal verification,
-        N-version dispatch — to every layer of the stack.
+      <div class="project-stack">
+        <span class="tag py">Python</span>
+        <span class="tag cpp">C++</span>
+        <span class="tag ts">TypeScript</span>
+        <span class="tag sh">ROS 2</span>
+        <span class="tag sh">NuttX</span>
+        <span class="tag sh">Zig</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat"><span class="val">783</span> <span class="unit">tests</span></span>
+        <span class="stat">SRL-<span class="val">3</span> HIL</span>
+        <span class="stat">DAL-<span class="val">A</span></span>
+        <span class="stat"><span class="val">1 kHz</span></span>
       </div>
     </div>
-    <div class="contact-block">
-      <div>charleskris9@gmail.com</div>
-      <div><a href="https://github.com/CBahtaria">github.com/CBahtaria</a></div>
-      <div><a href="https://linkedin.com/in/charles-bartaria">linkedin.com/in/charles-bartaria</a></div>
-      <div class="loc">Mbabane, Eswatini</div>
-      <div class="loc" style="margin-top:8px; font-size:10px;">2026-06-24</div>
-    </div>
-  </header>
-
-  <!-- ══════════════════════════════ SUMMARY ══════════════════════════════ -->
-  <section>
-    <div class="section-label">Profile</div>
-    <p class="summary-text">
-      Designed, built, and shipped a <strong>three-tier autonomous drone platform</strong> from bare-metal PX4/NuttX
-      (1 kHz reactive) through a DAL-A safety governor (10–50 Hz executive) to a
-      circuit-breaker-backed AI router (advisory). Delivered a <strong>military command &amp; control system</strong>
-      for the Unified Eswatini Defence Force. Implemented <strong>Levin-optimal program search</strong>
-      from first principles — provably asymptotically optimal with three speed modifications.
-      Works where correctness is not negotiable: formal invariants, tamper-evident audit,
-      supply-chain hygiene, and CI-gated DAL-A rules before any feature ships.
-    </p>
-  </section>
-
-  <!-- ══════════════════════════════ PROJECTS ══════════════════════════════ -->
-  <section>
-    <div class="section-label">Engineering Work</div>
-
-    <!-- agentic-uav-stack -->
-    <div class="project">
-      <div class="project-meta">
-        <div class="project-name">
-          agentic-uav-stack
-          <span class="vis private">PRIVATE</span>
-        </div>
-        <div class="project-type">Autonomous Aerial Platform</div>
-        <div class="project-date">2025 – present</div>
-        <div style="margin-top:8px;">
-          <span class="tier-badge reactive"><span class="dot"></span>Reactive</span>
-          <span class="tier-badge executive"><span class="dot"></span>Executive</span>
-          <span class="tier-badge advisory"><span class="dot"></span>Advisory</span>
-        </div>
-        <div class="project-stack">
-          <span class="tag py">Python</span>
-          <span class="tag cpp">C++</span>
-          <span class="tag ts">TypeScript</span>
-          <span class="tag sh">ROS 2</span>
-          <span class="tag sh">NuttX</span>
-        </div>
-        <div class="stat-row" style="margin-top:10px;">
-          <span class="stat"><span class="val">783</span> <span class="unit">tests</span></span>
-          <span class="stat">SRL-<span class="val">3</span> HIL</span>
-          <span class="stat">DAL-<span class="val">A</span></span>
-        </div>
+    <div class="project-body">
+      <div class="project-headline">
+        Three-tier drone platform separating reactive PX4 control, formal executive authority,
+        and advisory LLM — an AI can influence flight without touching the command path.
       </div>
-      <div class="project-body">
-        <div class="project-headline">
-          Multi-scale drone platform with a three-tier safety architecture separating
-          reactive control, formal executive authority, and advisory AI — an LLM can
-          influence flight decisions without touching the command path.
-        </div>
-        <ul class="bullets">
-          <li><strong>Reactive layer</strong> — PX4 + NuttX RTOS at <span class="num">1 kHz</span>: attitude control, motor mix, safety pilot override. MAVLink 2 message signing (WIP).</li>
-          <li><strong>Safety governor</strong> — <span class="num">10–50 Hz</span>, DAL-A. No <code>eval</code>/<code>exec</code>/<code>getattr</code> in the hot path. Returns <code>NO_GO</code> on any exception; decision variables pre-bound before <code>try</code> to prevent stale-setpoint propagation.</li>
-          <li><strong>Simplex formal shield</strong> — 5 geometric invariants enforced every governor tick. CI script rejects any code touching safety-critical paths that violates DAL-A rules.</li>
-          <li><strong>Brain daemon with key isolation</strong> — <code>brain/daemon.py</code> owns every secret; child processes launched with <code>env={}</code>. Auditable via <code>make audit-keys</code> (scans <code>/proc/*/environ</code>).</li>
-          <li><strong>Octogent multi-agent vulnerability scanner</strong> — 9 concurrent persona children (red-team, supply-chain, insider-threat, trojan-horse…) + 1 synthesis agent. Explicit failure containment per child.</li>
-          <li><strong>N-version dispatch</strong> — <code>shared/security/divtab.py</code>: silent divergence between independent implementations is the tamper signal.</li>
-          <li><strong>UAVZMA audit codec</strong> — LZ77 + Markov model; <span class="num">~46%</span> smaller than UAVZ on governor audit batches.</li>
-          <li><strong>EAV status registry</strong> — NATS KV + SQLite mirror. No schema migrations; write-once event log.</li>
-          <li><strong>Deadman's switch</strong> with NTP-attack detection. SROS2 keystore + DDS Security; only the <code>ai_agent</code> enclave may publish <code>/ai/suggested_action</code>.</li>
-        </ul>
+      <ul class="bullets">
+        <li><strong>Reactive layer</strong> — PX4/NuttX RTOS at <span class="num">1 kHz</span>: attitude control, motor mix, safety-pilot override. MAVLink 2 message signing.</li>
+        <li><strong>Safety governor (DAL-A)</strong> — <span class="num">10–50 Hz</span>: no <code>eval</code>/<code>exec</code>/<code>getattr</code> in hot path. Returns <code>NO_GO</code> on any exception; decision variables pre-bound before <code>try</code> to prevent stale-setpoint propagation.</li>
+        <li><strong>Simplex formal shield</strong> — 5 geometric invariants enforced every governor tick; CI rejects DAL-A violations on every push (<code>check_dal_a_rules.py</code>).</li>
+        <li><strong>Brain daemon / key isolation</strong> — <code>brain/daemon.py</code> owns every secret; child processes launched with <code>env={}</code>. Auditable via <code>make audit-keys</code> (scans <code>/proc/*/environ</code>).</li>
+        <li><strong>Octogent multi-agent scanner</strong> — 9 concurrent adversarial persona agents (red-team, supply-chain, insider-threat, trojan-horse, cat-burglar…) + 1 synthesis agent weekly.</li>
+        <li><strong>N-version dispatch</strong> — silent divergence between independent implementations is the tamper signal (<code>shared/security/divtab.py</code>).</li>
+        <li><strong>UAVZMA audit codec</strong> — LZ77 + Markov; <span class="num">~46%</span> smaller than baseline UAVZ on governor audit batches.</li>
+        <li><strong>Deadman's switch + NTS-NTP attack detection</strong>. SROS2 keystore + DDS Security; only <code>ai_agent</code> enclave may publish <code>/ai/suggested_action</code>.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SENTINEL -->
+  <div class="project">
+    <div class="project-meta">
+      <div class="project-name">UEDF SENTINEL v5.0 <span class="vis public">PUBLIC</span></div>
+      <div class="project-type">Military C2 System</div>
+      <div class="project-date">2025 – present</div>
+      <div><span class="tier-badge executive"><span class="dot"></span>Command &amp; Control</span></div>
+      <div class="project-stack">
+        <span class="tag php">PHP 8</span>
+        <span class="tag sh">MySQL</span>
+        <span class="tag ts">WebSocket</span>
+        <span class="tag sh">Redis</span>
       </div>
     </div>
-
-    <!-- sentinel -->
-    <div class="project">
-      <div class="project-meta">
-        <div class="project-name">
-          UEDF SENTINEL v5.0
-          <span class="vis public">PUBLIC</span>
-        </div>
-        <div class="project-type">Military C2 System</div>
-        <div class="project-date">2025 – present</div>
-        <div style="margin-top:8px;">
-          <span class="tier-badge executive"><span class="dot"></span>Command &amp; Control</span>
-        </div>
-        <div class="project-stack">
-          <span class="tag php">PHP 8</span>
-          <span class="tag sh">MySQL</span>
-          <span class="tag ts">WebSocket</span>
-        </div>
+    <div class="project-body">
+      <div class="project-headline">
+        Military command &amp; control system for the Unified Eswatini Defence Force.
+        Real-time drone fleet management, threat detection, and operator interfaces
+        built for national-library compliance posture.
       </div>
-      <div class="project-body">
-        <div class="project-headline">
-          Military command &amp; control system for the Unified Eswatini Defence Force.
-          Real-time drone fleet management, threat detection, and operator interfaces
-          designed for national-library compliance posture.
-        </div>
-        <ul class="bullets">
-          <li>Real-time <strong>drone fleet telemetry</strong> over WebSocket; subscribes to the same NATS namespace (<code>uav.v1.*</code>) as agentic-uav-stack.</li>
-          <li><strong>RBAC + 2FA</strong>, full audit logging. Threat detection with alert escalation.</li>
-          <li>Pre-production pending audit remediation — <span class="num">3 Critical</span> + <span class="num">6 High</span> findings tracked in <code>SECURITY-AUDIT-2026-05-21.md</code>. No production until queue is empty.</li>
-          <li>Design audience: defence forces, government officials, royal household — operator interfaces compress 6 data signals into the space a marketing site uses for one headline.</li>
-        </ul>
+      <ul class="bullets">
+        <li>Real-time <strong>drone fleet telemetry</strong> over WebSocket; subscribes to the same NATS namespace (<code>uav.v1.*</code>) as agentic-uav-stack.</li>
+        <li><strong>RBAC + 2FA</strong> with full tamper-evident audit logging. Alert escalation with operator acknowledgement tracking.</li>
+        <li>Pre-production: <span class="num">3 Critical</span> + <span class="num">6 High</span> findings tracked in <code>SECURITY-AUDIT-2026-05-21.md</code>. Zero features ship until audit queue is empty.</li>
+        <li>Design audience: defence forces, government officials, royal household — operator interfaces compress 6 data signals into the space a marketing site uses for one headline.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- MahlanyaRPG -->
+  <div class="project">
+    <div class="project-meta">
+      <div class="project-name">MahlanyaRPG <span class="vis private">PRIVATE</span></div>
+      <div class="project-type">Unreal Engine 5 · Production RPG</div>
+      <div class="project-date">2024 – present</div>
+      <div>
+        <span class="tier-badge game"><span class="dot"></span>UE5</span>
+        <span class="tier-badge infra"><span class="dot"></span>Simulation</span>
+      </div>
+      <div class="project-stack">
+        <span class="tag cpp">C++ / UE5</span>
+        <span class="tag zig">Zig SIMD</span>
+        <span class="tag py">Python</span>
+        <span class="tag sh">Blender</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat"><span class="val">316</span> <span class="unit">tests</span></span>
+        <span class="stat"><span class="val">10m</span> <span class="unit">DEM</span></span>
+        <span class="stat"><span class="val">5000</span>-pass <span class="unit">erosion</span></span>
       </div>
     </div>
-
-    <!-- levin-search -->
-    <div class="project">
-      <div class="project-meta">
-        <div class="project-name">
-          levin-search
-          <span class="vis private">PRIVATE</span>
-        </div>
-        <div class="project-type">Algorithms / Computability</div>
-        <div class="project-date">2026</div>
-        <div style="margin-top:8px;">
-          <span class="tier-badge algo"><span class="dot"></span>Levin-Optimal</span>
-        </div>
-        <div class="project-stack">
-          <span class="tag py">Python 3.11+</span>
-          <span class="tag sh">stdlib only</span>
-        </div>
+    <div class="project-body">
+      <div class="project-headline">
+        Scientifically-grounded 3D RPG set in Eswatini using real Copernicus 10m DEM terrain,
+        Swazi cultural geometry, and a geomorphological erosion simulator in Zig SIMD.
+        Phase 10 production-hardening complete; pre-launch.
       </div>
-      <div class="project-body">
-        <div class="project-headline">
-          Speed-optimised implementation of Levin's Universal Search over BrainFuck programs
-          with a pluggable success predicate. Asymptotically optimal: finds any computable
-          function in O(2<sup>|p*|</sup> · t*) total work.
-        </div>
-        <ul class="bullets">
-          <li><strong>Incremental execution</strong> — programs never restart; delta steps in phase i = <code>2^(i−|p|−1)</code>. Proved correct via BF determinism: incremental ≡ restart-per-phase with zero wasted work.</li>
-          <li><strong>Dead-set pruning</strong> — halted programs permanently removed from the active dict; never revisited across phases.</li>
-          <li><strong>O(1) bracket precomputation</strong> — jump table built once at machine construction; programs with unbalanced brackets rejected before tape allocation.</li>
-          <li><strong>Kolmogorov complexity CLI</strong> — <code>find</code>, <code>run</code>, <code>kolmogorov</code> subcommands. Estimates BF bit-length vs raw bit-length with compression ratio.</li>
-        </ul>
-        <div class="algo-block">
-          <strong style="color:var(--text);">Algorithm (pseudocode)</strong><br>
-          for i := 1, 2, … do<br>
-          &nbsp;&nbsp;for each program p with |p| ≤ i do<br>
-          &nbsp;&nbsp;&nbsp;&nbsp;run p for at most <span class="formula">2^(i − |p|)</span> total steps<br>
-          &nbsp;&nbsp;end for<br>
-          end for<br><br>
-          Optimality: O(<span class="formula">2^|p*| · t*</span>) — matches any reference machine up to the constant 2^|p*|.
-        </div>
+      <ul class="bullets">
+        <li><strong>Real terrain</strong> — Copernicus 10m DEM of Eswatini ingested via UE5 commandlet; deterministic: same seed + same tile → identical output bytes.</li>
+        <li><strong>Zig SIMD erosion engine</strong> — 5000-pass geomorphology + hydrology simulation; owns all compute math (not ported to Python). The technical moat.</li>
+        <li><strong>Historical accuracy CI gate</strong> — <code>historical_accuracy_check.py</code> rejects anachronisms: post-1902 technology in pre-colonial layouts, non-Swazi social geometry, wrong crops for latitude/altitude.</li>
+        <li><strong>Cultural review protocol</strong> — Swazi settlement geometry changes require review by a second author before merge (<code>docs/cultural-review-protocol.md</code>).</li>
+        <li><strong>Rendering hard lines</strong> — Lumen GI (no baked lighting), VSM (no CSMs), TSR upscaling, World Partition + HLOD. Nanite for every static mesh; no LOD chains.</li>
+        <li><strong>Performance regression CI</strong> — ±15% tolerance across 5 hardware tiers on 19 CVars. A commit that widens frame-time variance on UltraLowEnd is a bug.</li>
+        <li>11 UE5 plugins, 10 simulation systems, 50+ authored characters and environments.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Layered -->
+  <div class="project">
+    <div class="project-meta">
+      <div class="project-name">Layered <span class="vis public">PUBLIC</span></div>
+      <div class="project-type">Chrome MV3 Privacy Extension</div>
+      <div class="project-date">2025 – present</div>
+      <div>
+        <span class="tier-badge security"><span class="dot"></span>Privacy</span>
+        <span class="tier-badge advisory"><span class="dot"></span>AI Inference</span>
+      </div>
+      <div class="project-stack">
+        <span class="tag ts">TypeScript</span>
+        <span class="tag ts">React 18</span>
+        <span class="tag sh">NestJS</span>
+        <span class="tag sh">SubtleCrypto</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat"><span class="val">75+</span> <span class="unit">tests</span></span>
+        <span class="stat">MV3</span>
+        <span class="stat">AES-<span class="val">256</span>-GCM</span>
       </div>
     </div>
-
-    <!-- maize-leaf-classifier -->
-    <div class="project">
-      <div class="project-meta">
-        <div class="project-name">
-          maize-leaf-classifier
-          <span class="vis public">PUBLIC</span>
-        </div>
-        <div class="project-type">Computer Vision / ML</div>
-        <div class="project-date">2026</div>
-        <div style="margin-top:8px;">
-          <span class="tier-badge algo"><span class="dot"></span>AI/ML</span>
-        </div>
-        <div class="project-stack">
-          <span class="tag py">Python</span>
-          <span class="tag sh">TensorFlow</span>
-          <span class="tag ts">React PWA</span>
-          <span class="tag sh">FastAPI</span>
-        </div>
+    <div class="project-body">
+      <div class="project-headline">
+        Privacy-first Chrome MV3 extension combining E2E credential vault, OSINT intelligence,
+        real-time threat advisor, proxy kill-switch, and on-device Ollama tier-0 LLM inference.
+        No third-party crypto libraries — pure SubtleCrypto.
       </div>
-      <div class="project-body">
-        <div class="project-headline">
-          Agricultural computer vision classifier for maize leaf disease detection targeting
-          smallholder farmers in Sub-Saharan Africa. InceptionV3 backbone, production-deployed
-          via blue-green zero-downtime strategy on Render + Vercel.
-        </div>
-        <ul class="bullets">
-          <li><strong>InceptionV3 transfer learning</strong> — binary classification (healthy vs diseased), calibrated confidence scores, lazy TensorFlow import for cold-start performance.</li>
-          <li><strong>FastAPI inference server</strong> — X-API-Key auth on <code>/predict</code>, <code>/health</code> endpoint, rate-limited via <code>slowapi</code>. CI validates model artifact SHA-256 on every push.</li>
-          <li><strong>React PWA</strong> — mobile-first, offline-capable, installable. Deployed to Vercel with automatic preview URLs per PR.</li>
-          <li><strong>Blue-green deploy pipeline</strong> — <code>release-model.sh</code> + <code>wire-frontend.sh</code> scripts; zero-downtime model swaps. Model artifacts distributed via GitHub Releases.</li>
-        </ul>
+      <ul class="bullets">
+        <li><strong>Proton Pass key hierarchy</strong> — Master Password → PBKDF2 (210k iter) → User Key (RAM only, <code>chrome.storage.session</code>) → AES-GCM wrap → per-vault → per-item keys. Zero plaintext at rest.</li>
+        <li><strong>OSINT engine</strong> — parallel queries to 6 public sources (crt.sh, Cloudflare DoH, RDAP, Shodan InternetDB, ipinfo.io, Wayback Machine) with 8s per-source timeout.</li>
+        <li><strong>ZIP bomb guard</strong> — Range-fetches first 512 bytes, parses ZIP local file header manually, cancels download at ratio &gt;100× or &gt;50 MB extracted.</li>
+        <li><strong>MITM defense</strong> — TOFU HTTPS tracking via <code>webNavigation</code>; SSL strip detection; HSTS header continuity monitoring via <code>webRequest</code>.</li>
+        <li><strong>Proxy kill-switch</strong> — <code>chrome.proxy.onProxyError</code> → DNR deny-all rule (id 9999). DNS leak protection blocks plain resolvers (8.8.8.8, 1.1.1.1…).</li>
+        <li><strong>Ollama tier-0</strong> — local inference at <code>localhost:11434</code> prepended before remote relay; zero cost, zero data egress for tier-1 queries.</li>
+        <li><strong>Privacy identity generator</strong> — locale-aware fake PII for 6 locales (en-US, en-GB, fr-FR, de-DE, af-ZA / Swazi, sw-KE); mulberry32 PRNG seeded from CSPRNG.</li>
+        <li><strong>EXIF guard</strong> — content script hooks file inputs; manually parses JPEG binary for GPS IFD tag; strips metadata via canvas before upload.</li>
+        <li><strong>lets-connect-eswatini PoW integration</strong> — inline blob Web Worker mines SHA-256 PoW challenges for LCE auth without blocking the UI thread.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- lets-connect-eswatini -->
+  <div class="project">
+    <div class="project-meta">
+      <div class="project-name">lets-connect-eswatini <span class="vis public">PUBLIC</span></div>
+      <div class="project-type">NestJS Social Platform Backend</div>
+      <div class="project-date">2025 – present</div>
+      <div><span class="tier-badge web"><span class="dot"></span>Production</span></div>
+      <div class="project-stack">
+        <span class="tag ts">TypeScript</span>
+        <span class="tag sh">NestJS</span>
+        <span class="tag sh">NATS</span>
+        <span class="tag sh">Redis</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat"><span class="val">36</span> <span class="unit">tests</span></span>
+        <span class="stat">PoW <span class="val">2²⁰</span></span>
       </div>
     </div>
-
-    <!-- second-brain -->
-    <div class="project">
-      <div class="project-meta">
-        <div class="project-name">
-          second-brain
-          <span class="vis private">PRIVATE</span>
-        </div>
-        <div class="project-type">Knowledge Infrastructure</div>
-        <div class="project-date">2025 – present</div>
-        <div style="margin-top:8px;">
-          <span class="tier-badge advisory"><span class="dot"></span>AI-Augmented</span>
-        </div>
-        <div class="project-stack">
-          <span class="tag py">Python</span>
-          <span class="tag sh">Qdrant</span>
-          <span class="tag sh">ONNX</span>
-        </div>
+    <div class="project-body">
+      <div class="project-headline">
+        NestJS backend for a privacy-first Eswatini social platform with proof-of-work
+        anti-spam, two-layer malware detection, brotli content pipeline, and NATS pub/sub.
       </div>
-      <div class="project-body">
-        <div class="project-headline">
-          Obsidian-style knowledge vault with 29 cross-linked wiki articles and 28 studio
-          agents that compound knowledge autonomously via per-session Evolution Log entries.
-        </div>
-        <ul class="bullets">
-          <li>Karpathy-style synthesis pipeline — <code>&lt;scratchpad&gt;</code> before article emission; no hallucinated facts enter the vault.</li>
-          <li><code>AGENT_EVOLUTION</code> coworker auto-appends Evolution Log entries from claude-mem observations daily at 23:30 — the vault writes itself.</li>
-          <li>Qdrant vector store + ONNX embedding server for semantic retrieval. SQLite FTS5 for keyword search.</li>
-        </ul>
+      <ul class="bullets">
+        <li><strong>PoW + OTP + JWT auth</strong> — SHA-256, 2²⁰ difficulty (5 leading hex zeros) before OTP issuance. Brute-force: 3 failures → 1-hour ban. <code>crypto.timingSafeEqual</code> comparison.</li>
+        <li><strong>Mitochondrion pipeline</strong> — content → brotli (quality 4) → 384-dim ONNX embedding → NATS <code>lce.v1.mito.*</code>. Adaptive routing by content type.</li>
+        <li><strong>Two-layer moderation</strong> — synchronous heuristic spam classifier (4 verdict levels) + async ClamAV/YARA escalation via <code>lce.v1.moderation.queue</code> NATS topic.</li>
+        <li><strong>Adaptive config governance</strong> — proposals requiring &gt;20% change delta require approval; full audit trail of every config mutation.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- likhono-lami -->
+  <div class="project">
+    <div class="project-meta">
+      <div class="project-name">likhono-lami <span class="vis private">PRIVATE</span></div>
+      <div class="project-type">Location-Aware Marketplace</div>
+      <div class="project-date">2025 – present</div>
+      <div><span class="tier-badge web"><span class="dot"></span>Full-Stack</span></div>
+      <div class="project-stack">
+        <span class="tag ts">TypeScript</span>
+        <span class="tag sh">Expo</span>
+        <span class="tag sh">NestJS</span>
+        <span class="tag sh">PostGIS</span>
       </div>
     </div>
-
-    <!-- production-compression-framework -->
-    <div class="project">
-      <div class="project-meta">
-        <div class="project-name">
-          production-compression&#8209;framework
-          <span class="vis private">PRIVATE</span>
-        </div>
-        <div class="project-type">Infrastructure / Edge</div>
-        <div class="project-date">2025 – present</div>
-        <div style="margin-top:8px;">
-          <span class="tier-badge infra"><span class="dot"></span>Edge-deployed</span>
-        </div>
-        <div class="project-stack">
-          <span class="tag sh">Bash</span>
-          <span class="tag sh">Shell</span>
-        </div>
+    <div class="project-body">
+      <div class="project-headline">
+        Cross-platform SADC marketplace with geospatial listing discovery, PostGIS proximity
+        search, and Expo mobile frontend.
       </div>
-      <div class="project-body">
-        <div class="project-headline">
-          Production-grade compression pipeline for high-throughput sensor data at the edge
-          of the UAV pipeline. Adaptive streaming with multi-codec orchestration.
-        </div>
-        <ul class="bullets">
-          <li>Adaptive codec selection based on data profile — same discipline as UAVZMA (LZ77+Markov) applied to the sensor pipeline layer.</li>
-          <li>Edge-deployed: minimal runtime dependencies, fits on Jetson Orin alongside ROS 2 and the safety governor.</li>
-        </ul>
+      <ul class="bullets">
+        <li><strong>PostGIS radius queries</strong> — sub-50ms listing discovery by lat/lng + radius; indexed with GIST on geography columns.</li>
+        <li><strong>Expo + NestJS monorepo</strong> — shared TypeScript types across mobile app and API; React Native maps integration.</li>
+        <li>EXIF metadata stripping via Layered extension for photo listings — GPS coordinates cannot leak through uploaded images.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- levin-search -->
+  <div class="project">
+    <div class="project-meta">
+      <div class="project-name">levin-search <span class="vis private">PRIVATE</span></div>
+      <div class="project-type">Algorithms / Computability</div>
+      <div class="project-date">2026</div>
+      <div><span class="tier-badge algo"><span class="dot"></span>Levin-Optimal</span></div>
+      <div class="project-stack">
+        <span class="tag py">Python 3.11+</span>
+        <span class="tag sh">stdlib only</span>
       </div>
     </div>
-
-    <!-- studio-p -->
-    <div class="project">
-      <div class="project-meta">
-        <div class="project-name">
-          studio-p
-          <span class="vis public">PUBLIC</span>
-        </div>
-        <div class="project-type">Full-Stack Web Platform</div>
-        <div class="project-date">2026</div>
-        <div style="margin-top:8px;">
-          <span class="tier-badge web"><span class="dot"></span>Production</span>
-        </div>
-        <div class="project-stack">
-          <span class="tag ts">TypeScript</span>
-          <span class="tag ts">React 19</span>
-          <span class="tag sh">Supabase</span>
-          <span class="tag sh">Vercel</span>
-        </div>
+    <div class="project-body">
+      <div class="project-headline">
+        Speed-optimised Levin Universal Search over BrainFuck programs with a pluggable
+        success predicate. Asymptotically optimal: O(2<sup>|p*|</sup> · t*) total work.
       </div>
-      <div class="project-body">
-        <div class="project-headline">
-          Production barbershop booking platform — same engineering discipline (compliance
-          before features, fail-safe defaults, audit-first) applied outside the aerospace domain.
-        </div>
-        <ul class="bullets">
-          <li>React 19 + TypeScript + Supabase + Vercel. Pake desktop wrapper for offline-first operation.</li>
-          <li>Full booking flow, staff scheduling, real-time availability. Designed so a non-technical operator can run it cold.</li>
-        </ul>
+      <ul class="bullets">
+        <li><strong>Incremental execution</strong> — delta steps in phase i = <code>2^(i−|p|−1)</code>. Proved equivalent to restart-per-phase with zero wasted work.</li>
+        <li><strong>Dead-set pruning</strong> — halted programs removed from active dict permanently; never revisited across phases.</li>
+        <li><strong>O(1) bracket precomputation</strong> — jump table built once at machine construction; unbalanced brackets rejected before tape allocation.</li>
+        <li><strong>Kolmogorov complexity CLI</strong> — <code>find</code>, <code>run</code>, <code>kolmogorov</code> subcommands; estimates BF bit-length vs raw with compression ratio.</li>
+      </ul>
+      <div class="algo-block">
+        <strong style="color:var(--text)">Algorithm</strong><br>
+        for i := 1, 2, … do<br>
+        &nbsp;&nbsp;for each program p with |p| ≤ i do<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;run p for at most <span class="formula">2^(i − |p|)</span> total steps<br>
+        &nbsp;&nbsp;end for<br>
+        end for<br><br>
+        Optimality bound: O(<span class="formula">2^|p*| · t*</span>) — matches any reference machine up to constant 2^|p*|.
       </div>
     </div>
+  </div>
 
-  </section>
-
-  <!-- ══════════════════════════════ PRINCIPLES ══════════════════════════════ -->
-  <section>
-    <div class="section-label">Engineering Principles</div>
-    <div class="principles-grid">
-      <div class="principle">
-        <strong>No AI in the flight command path</strong>
-        AI is advisory. Formal shield + governor have final authority. Engagement recommendations require explicit human authorization.
+  <!-- maize-leaf-classifier -->
+  <div class="project">
+    <div class="project-meta">
+      <div class="project-name">maize-leaf-classifier <span class="vis public">PUBLIC</span></div>
+      <div class="project-type">Computer Vision / Agricultural ML</div>
+      <div class="project-date">2026</div>
+      <div><span class="tier-badge algo"><span class="dot"></span>AI/ML</span></div>
+      <div class="project-stack">
+        <span class="tag py">Python</span>
+        <span class="tag sh">TensorFlow</span>
+        <span class="tag ts">React PWA</span>
+        <span class="tag sh">FastAPI</span>
       </div>
-      <div class="principle">
-        <strong>DAL-A invariants are CI-gated</strong>
-        <code>check_dal_a_rules.py</code> rejects <code>eval</code>, <code>exec</code>, <code>getattr</code>, <code>__import__</code> in safety-critical files on every push.
-      </div>
-      <div class="principle">
-        <strong>Fail-safe means NO_GO</strong>
-        Governor returns NO_GO on any exception. Decision variables are pre-bound before <code>try</code> to prevent stale-setpoint propagation.
-      </div>
-      <div class="principle">
-        <strong>API keys never leave the daemon</strong>
-        <code>brain/daemon.py</code> loads <code>.env</code>, pops secrets from <code>os.environ</code>, spawns children with <code>env={}</code>. Weekly audit via <code>make audit-keys</code>.
-      </div>
-      <div class="principle">
-        <strong>Compliance gates before features</strong>
-        Tamper-evident audit before "observability". Deterministic safety before clever AI. Sentinel ships zero features until the audit queue is empty.
-      </div>
-      <div class="principle">
-        <strong>Multi-persona security review</strong>
-        9 concurrent adversarial personas weekly — red-team, supply-chain, insider-threat, trojan-horse, cat-burglar — with explicit containment per child.
+      <div class="stat-row">
+        <span class="stat"><span class="val">99.9%</span> <span class="unit">accuracy</span></span>
+        <span class="stat">5 <span class="unit">CNN models</span></span>
       </div>
     </div>
-  </section>
+    <div class="project-body">
+      <div class="project-headline">
+        Agricultural computer vision classifier for maize leaf disease detection targeting
+        smallholder farmers in Sub-Saharan Africa. MobileNetV2 / InceptionV3 transfer learning;
+        zero-downtime blue-green deploys on Render + Vercel.
+      </div>
+      <ul class="bullets">
+        <li>Compared 5 CNN architectures (VGG16, ResNet50, InceptionV3, MobileNetV2, EfficientNetB0) — MobileNetV2 achieves <span class="num">99.9%</span> accuracy with lowest inference latency.</li>
+        <li><strong>FastAPI inference server</strong> — X-API-Key auth, <code>slowapi</code> rate limiting, lazy TF import. CI validates model artifact SHA-256 on every push.</li>
+        <li><strong>React PWA</strong> — mobile-first, offline-capable. Blue-green deploy: <code>release-model.sh</code> + <code>wire-frontend.sh</code>; model artifacts via GitHub Releases.</li>
+      </ul>
+    </div>
+  </div>
 
-  <!-- ══════════════════════════════ TECH ══════════════════════════════ -->
-  <section>
-    <div class="section-label">Technology</div>
-    <div class="skills-grid">
-      <div class="skill-group">
-        <div class="skill-group-name">Languages</div>
-        <div class="skill-list">
-          <span class="hl">Python 3.12</span> (CI matrix 3.11–3.13)<br>
-          <span class="hl">TypeScript</span> · <span class="hl">C++</span><br>
-          PHP 8 · Bash · SQL
-        </div>
-      </div>
-      <div class="skill-group">
-        <div class="skill-group-name">Embedded / Realtime</div>
-        <div class="skill-list">
-          <span class="hl">ROS 2 Jazzy</span> · <span class="hl">NuttX RTOS</span><br>
-          PX4 Autopilot · MAVLink 2<br>
-          DDS / SROS2 · Jetson Orin
-        </div>
-      </div>
-      <div class="skill-group">
-        <div class="skill-group-name">Infrastructure</div>
-        <div class="skill-list">
-          Docker Compose · <span class="hl">Kubernetes</span><br>
-          MicroShift · Helm · Ansible<br>
-          systemd · RHEL9 · Fedora
-        </div>
-      </div>
-      <div class="skill-group">
-        <div class="skill-group-name">Data Plane</div>
-        <div class="skill-list">
-          <span class="hl">NATS JetStream</span> (14 streams)<br>
-          Qdrant · SQLite (WAL + FTS5)<br>
-          DuckDB · PostgreSQL · MySQL
-        </div>
-      </div>
-      <div class="skill-group">
-        <div class="skill-group-name">AI / ML</div>
-        <div class="skill-list">
-          Claude Sonnet/Opus · <span class="hl">Ollama</span><br>
-          SFT · RLVR · GGUF quantization<br>
-          Off-policy SAC · circuit breaker
-        </div>
-      </div>
-      <div class="skill-group">
-        <div class="skill-group-name">Security</div>
-        <div class="skill-list">
-          SROS2 · <span class="hl">TPM 2.0</span> · DDS Security<br>
-          cosign · NTS-NTP · MAVLink signing<br>
-          Supply-chain hygiene (XZ-aware)
-        </div>
+  <!-- studio-p -->
+  <div class="project">
+    <div class="project-meta">
+      <div class="project-name">studio-p <span class="vis public">PUBLIC</span></div>
+      <div class="project-type">Full-Stack Booking Platform</div>
+      <div class="project-date">2026</div>
+      <div><span class="tier-badge web"><span class="dot"></span>Production</span></div>
+      <div class="project-stack">
+        <span class="tag ts">React 19</span>
+        <span class="tag sh">Supabase</span>
+        <span class="tag sh">Vercel</span>
       </div>
     </div>
-  </section>
+    <div class="project-body">
+      <div class="project-headline">
+        Production barbershop booking platform applying the same engineering discipline
+        (compliance before features, fail-safe defaults, audit-first) outside the aerospace domain.
+      </div>
+      <ul class="bullets">
+        <li>Full booking flow, staff scheduling, real-time availability. Pake desktop wrapper for offline-first operation.</li>
+        <li>Supabase RLS, no client-bundle secrets, Vercel CI. Designed so a non-technical operator can run it cold.</li>
+      </ul>
+    </div>
+  </div>
 
-  <!-- ══════════════════════════════ FOOTER ══════════════════════════════ -->
-  <footer>
-    <div class="footer-left">
-      github.com/CBahtaria · charleskris9@gmail.com
+  <!-- second-brain -->
+  <div class="project">
+    <div class="project-meta">
+      <div class="project-name">second-brain <span class="vis private">PRIVATE</span></div>
+      <div class="project-type">AI Knowledge Infrastructure</div>
+      <div class="project-date">2025 – present</div>
+      <div><span class="tier-badge advisory"><span class="dot"></span>AI-Augmented</span></div>
+      <div class="project-stack">
+        <span class="tag py">Python</span>
+        <span class="tag sh">Qdrant</span>
+        <span class="tag sh">ONNX</span>
+        <span class="tag sh">SQLite FTS5</span>
+      </div>
     </div>
-    <div class="footer-right">
-      Mbabane, Eswatini · 2026-06-24
+    <div class="project-body">
+      <div class="project-headline">
+        Obsidian-style knowledge vault with 29 cross-linked wiki articles and 28 studio
+        agents that compound knowledge autonomously via per-session Evolution Log entries.
+      </div>
+      <ul class="bullets">
+        <li>Karpathy-style synthesis — <code>&lt;scratchpad&gt;</code> before emission; no hallucinated facts enter the vault.</li>
+        <li><code>AGENT_EVOLUTION</code> coworker auto-appends Evolution Log entries from observations daily at 23:30 — the vault writes itself.</li>
+        <li>Qdrant vector store + ONNX embedding server for semantic retrieval. SQLite FTS5 for keyword search.</li>
+      </ul>
     </div>
-  </footer>
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════ EDUCATION ══════════════════════════════ -->
+<section>
+  <div class="section-label">Education</div>
+  <div class="edu-row">
+    <div class="edu-meta">
+      2022 – present<br>Kwaluseni, Matsapha
+    </div>
+    <div>
+      <div class="edu-inst">University of Eswatini (UNESWA)</div>
+      <div class="edu-degree">Bachelor of Science in Computer Science &amp; Engineering</div>
+      <div style="margin-top:6px; font-size:12px; color:var(--dim);">
+        Concurrent with full-time engineering: autonomous aerial systems, military C2,
+        production game development, agricultural ML, and enterprise SaaS — all shipped while enrolled.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ PRINCIPLES ══════════════════════════════ -->
+<section>
+  <div class="section-label">Engineering Principles</div>
+  <div class="principles-grid">
+    <div class="principle">
+      <strong>No AI in the flight command path</strong>
+      AI is advisory. Formal shield and governor have final authority. Engagement requires explicit human authorization.
+    </div>
+    <div class="principle">
+      <strong>DAL-A invariants are CI-gated</strong>
+      <code>check_dal_a_rules.py</code> rejects <code>eval</code>, <code>exec</code>, <code>getattr</code>, <code>__import__</code> in safety-critical files on every push.
+    </div>
+    <div class="principle">
+      <strong>Fail-safe means NO_GO</strong>
+      Governor returns NO_GO on any exception. Decision variables pre-bound before <code>try</code> to prevent stale-setpoint propagation.
+    </div>
+    <div class="principle">
+      <strong>API keys never leave the daemon</strong>
+      <code>brain/daemon.py</code> loads secrets, pops from <code>os.environ</code>, spawns children with <code>env={}</code>. Auditable weekly.
+    </div>
+    <div class="principle">
+      <strong>Compliance gates before features</strong>
+      Tamper-evident audit before "observability." Historical accuracy CI before content. Sentinel ships zero features until audit queue is empty.
+    </div>
+    <div class="principle">
+      <strong>Zero plaintext at rest</strong>
+      Credentials under AES-256-GCM with PBKDF2 key derivation. Session keys in <code>chrome.storage.session</code> — auto-cleared on browser close.
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ TECHNOLOGY ══════════════════════════════ -->
+<section>
+  <div class="section-label">Technology</div>
+  <div class="skills-grid">
+    <div class="skill-group">
+      <div class="skill-group-name">Languages</div>
+      <div class="skill-list">
+        <span class="hl">Python 3.12</span> (CI: 3.11–3.13)<br>
+        <span class="hl">TypeScript 5</span> · <span class="hl">C++</span><br>
+        <span class="hl">Zig</span> (SIMD compute)<br>
+        PHP 8 · Bash · SQL · HLSL
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-name">Embedded / Realtime</div>
+      <div class="skill-list">
+        <span class="hl">ROS 2 Jazzy</span> · <span class="hl">NuttX</span><br>
+        PX4 Autopilot · MAVLink 2<br>
+        DDS / SROS2 · Jetson Orin<br>
+        <span class="hl">Unreal Engine 5</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-name">Infrastructure</div>
+      <div class="skill-list">
+        <span class="hl">Docker</span> · <span class="hl">Kubernetes</span><br>
+        MicroShift · Helm · Ansible<br>
+        systemd · RHEL9 · Fedora<br>
+        Vercel · GitHub Actions
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-name">Data Plane</div>
+      <div class="skill-list">
+        <span class="hl">NATS JetStream</span><br>
+        <span class="hl">Qdrant</span> · PostgreSQL<br>
+        PostGIS · SQLite FTS5<br>
+        DuckDB · MySQL · Redis
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-name">AI / ML</div>
+      <div class="skill-list">
+        <span class="hl">Ollama</span> (tier-0 local)<br>
+        Claude Sonnet/Opus · SFT<br>
+        TensorFlow · ONNX · RLVR<br>
+        Off-policy SAC · GGUF quant
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-name">Security &amp; Crypto</div>
+      <div class="skill-list">
+        <span class="hl">SubtleCrypto</span> (AES-GCM, PBKDF2)<br>
+        SROS2 · <span class="hl">TPM 2.0</span> · DDS Security<br>
+        cosign · NTS-NTP · MAVLink signing<br>
+        declarativeNetRequest · Ed25519
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-name">Frontend / Mobile</div>
+      <div class="skill-list">
+        <span class="hl">React 18/19</span> · Next.js<br>
+        <span class="hl">Expo</span> (React Native)<br>
+        Chrome MV3 · Vite 8<br>
+        Supabase · Zod · Tailwind
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-name">Game / Simulation</div>
+      <div class="skill-list">
+        <span class="hl">Lumen GI</span> · VSM · TSR<br>
+        Nanite · World Partition<br>
+        Copernicus DEM pipeline<br>
+        Zig SIMD geomorphology
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ FOOTER ══════════════════════════════ -->
+<footer>
+  <div class="footer-left">
+    github.com/CBahtaria · charleskris9@gmail.com · brt-inc.vercel.app
+  </div>
+  <div class="footer-center">
+    BRT Inc. · Kwaluseni · Matsapha · Eswatini
+  </div>
+  <div class="footer-right">
+    2026-07-25
+  </div>
+</footer>
 
 </div>
 </body>

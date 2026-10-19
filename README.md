@@ -114,7 +114,7 @@ UE5 C++ · Zig 0.13+ · Python 3.11 · GDAL · Unreal Insights · Steam SDK 1.58
 
 ---
 
-### 🔒 [UEDF Sentinel v5.0](https://github.com/CBahtaria/sentinel) — public
+### 🔒 [BEDF Sentinel v5.0](https://github.com/CBahtaria/sentinel) — public
 
 **Military command & control platform** · 27,900 lines · PHP 8 + MySQL · production-ready
 

@@ -71,7 +71,7 @@ flowchart TB
 
 ---
 
-## Now (week of 2026-07-26)
+## Now (week of 2026-10-11)
 
 - **brt-inc — SpaceX-style cinematic overhaul** — Pure `#000` background, SpaceX white-opacity variable series (`--white-10` → `--white-100`), condensed display font. Hero: full-viewport mission statement ("Sovereign Technology / for Southern Africa." gradient), DAL-A/Ed25519/SADC-focused trust signals. New `SADC Sovereign Marketplace` section: 6 category cards (Defence, Agricultural, Infrastructure, Civic, Autonomous, Healthcare), 4 featured supplier cards with verified badges + ratings, RFQ CTA. Services renamed "Mission Capabilities" — pure surface-1 cards, indigo hover glow. Committed + pushed. Live at [brtinc.vercel.app](https://brtinc.vercel.app).
 - **Layered extension** — A-L feature set committed (offline-first, governance receipts, sandboxing, E2E relay, interview AI, OSINT panel, form-filler, identity vault, dark-mode injection, tabs module). 104 tests passing. Pushed to GitHub.
